@@ -1,5 +1,5 @@
-let version = 'v3.1';
-// test 2222
+let version = 'v4.0';
+// test 2222 4.0
 // 3333 3333
 let topX = 10;
 let topY = 0;
@@ -12,7 +12,7 @@ let _NOTEST = false;
 let _OPENED = true;
 let _CLOSED = false;
 let flashRedCounter = 1000;
-// 4444 4444 44444 5555 branch 3.1
+
 let flashingRedCASmessages = false;
 let previousSpoilerState = 'up';
 let currentSpoilerState = 'down';
