@@ -373,7 +373,7 @@ function draw() {
     fill('black');//color
   }
   circle(topGroundSpoilerArmContactCircle4[0]+0,topGroundSpoilerArmContactCircle4[1],topGroundSpoilerArmContactCircle4[2]);
-// ----------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
   if (botValveOpen) {
     fill('red');//color
   }
@@ -403,7 +403,7 @@ function draw() {
   }
   circle(botGroundSpoilerArmContactCircle4[0],botGroundSpoilerArmContactCircle4[1],botGroundSpoilerArmContactCircle4[2]);
 
-//primary hydraulic valve electrical lines ***************************************************************************************
+  //primary hydraulic valve electrical lines ***************************************************************************
   strokeWeight(2);
   stroke('red');//color
   line(0,topY+topContactsBaseLineY,leftThrottleContactCircle1[0],leftThrottleContactCircle1[1]);//line before left throttle contacts
@@ -413,6 +413,7 @@ function draw() {
   else {
     stroke('black');//color
   }
+  strokeWeight(2);
   line(leftThrottleContactCircle2[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle1[0]-6,topY+primaryHydraulicValveY);//line after left throttle contact
   if (groundSpoilerArmSwitchFlag == _ARMED) {
     if (topValveOpen) {
@@ -421,6 +422,7 @@ function draw() {
     else {
       stroke('black');//color
     }
+    strokeWeight(3);
     line(topGroundSpoilerArmContactCircle1[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle2[0]-6,topY+primaryHydraulicValveY);//primary hydraulic valve contact
   }
   else {
@@ -430,6 +432,7 @@ function draw() {
     else {
       stroke('black');//color
     }
+    strokeWeight(3);
     line(topGroundSpoilerArmContactCircle1[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle2[0]-6,topY+primaryHydraulicValveY-contactsOpenHeight);//primary hydraulic valve contact
   }
   if (topValveOpen) {
@@ -438,9 +441,11 @@ function draw() {
   else {
     stroke('black');//color
   }
+  strokeWeight(2);
   line(topGroundSpoilerArmContactCircle4[0]+6,topY+primaryHydraulicValveY,topX+primaryHydraulicValveX,topY+primaryHydraulicValveY);//line after ground spoiler contact to primary hydraulic valve
 
-//secondary hydraulic valve electrical lines ****************************************************************************************
+  //secondary hydraulic valve electrical lines *************************************************************************
+  strokeWeight(2);
   stroke('red');//color
   line(0,topY+botContactsBaseLineY,rightThrottleContactCircle1[0],rightThrottleContactCircle1[1]);//line before right throttle contacts
   if (rightThrottleIdleFlag == _IDLE) {
@@ -449,6 +454,7 @@ function draw() {
   else {
     stroke('black');//color
   }
+  strokeWeight(2);
   line(rightThrottleContactCircle2[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle1[0]-6,topY+secondaryHydraulicValveY);//line after right throttle contact
   if (groundSpoilerArmSwitchFlag == _ARMED) {
     if (rightThrottleIdleFlag == _IDLE) {
@@ -457,6 +463,7 @@ function draw() {
     else {
       stroke('black');//color
     }
+    strokeWeight(3);
     line(botGroundSpoilerArmContactCircle1[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle2[0]-6,topY+secondaryHydraulicValveY);//secondary hydraulic valve contact
   }
   else {
@@ -466,6 +473,7 @@ function draw() {
     else {
       stroke('black');//color
     }
+    strokeWeight(3);
     line(botGroundSpoilerArmContactCircle1[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle2[0]-6,topY+secondaryHydraulicValveY-contactsOpenHeight);//secondary hydraulic valve contact
   }
   if (botValveOpen) {
@@ -474,6 +482,7 @@ function draw() {
   else {
     stroke('black');//color
   }
+  strokeWeight(2);
   line(botGroundSpoilerArmContactCircle4[0]+6,topY+secondaryHydraulicValveY,topX+secondaryHydraulicValveX,topY+secondaryHydraulicValveY);//line after ground spoiler contact to secondary hydraulic valve
   
   strokeWeight(1);
@@ -1034,7 +1043,7 @@ function drawGroundSpoilerArmSwitch() {
   text('Ground Spoiler Contacts', topX+groundSpoilerArmSwitchTextX+0, topY+groundSpoilerArmSwitchTextY+30);
   strokeWeight(1);
   stroke('black');//color
-  drawingContext.setLineDash([5, 5]);//turn on dashed lines
+  drawingContext.setLineDash([5, 5]);//turn on dashed lines ***************************************************
   if (groundSpoilerArmSwitchFlag == _ARMED) {
     //contacts closed
     line(topX+groundSpoilerArmSwitchX+28,topY+topContactsBaseLineY+0,topX+groundSpoilerArmSwitchX+28,topY+topContactsBaseLineY+180);
@@ -1049,7 +1058,7 @@ function drawGroundSpoilerArmSwitch() {
     //drawPrimaryHydraulicValveOpen(primaryHydraulicValveX,primaryHydraulicValveY,60,320,40,140,220);
     //drawSecondaryHydraulicValveOpen(secondaryHydraulicValveX,secondaryHydraulicValveY,60,320,40,140,220);
   }
-  drawingContext.setLineDash([]);//turn off dashed lines
+  drawingContext.setLineDash([]);//turn off dashed lines ******************************************************
 }
 
 function drawGroundSpoilerArmSwitchToggle() {
@@ -1132,9 +1141,9 @@ function drawLeftThrottle() {
     //text('Throttle', topX+leftThrottleIdleX1+13, topY+leftThrottleIdleY1+30);
     
     // left throttle idle contact made
-    strokeWeight(2);
+    strokeWeight(3);
     stroke('red');//color
-    line(leftThrottleContactCircle1[0]+6,leftThrottleContactCircle1[1],leftThrottleContactCircle2[0]-6,leftThrottleContactCircle2[1]);
+    line(leftThrottleContactCircle1[0]+6,leftThrottleContactCircle1[1],leftThrottleContactCircle2[0]-6,leftThrottleContactCircle2[1]);// left throttle contacts
   }
   else {
     // left throttle at power up
@@ -1150,9 +1159,10 @@ function drawLeftThrottle() {
     rect(topX+leftThrottleIdleX1, topY+leftThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
     
     // left throttle power contact broken
-    strokeWeight(2);
+    strokeWeight(3);
     stroke('red');//color
-    line(leftThrottleContactCircle1[0]+6,leftThrottleContactCircle1[1],leftThrottleContactCircle2[0]-6,leftThrottleContactCircle2[1]-contactsOpenHeight);
+    line(leftThrottleContactCircle1[0]+6,leftThrottleContactCircle1[1],leftThrottleContactCircle2[0]-6,leftThrottleContactCircle2[1]-contactsOpenHeight);// left throttle contacts
+    strokeWeight(2);
   }
 }
 
@@ -1172,9 +1182,9 @@ function drawRightThrottle() {
     textSize(16);
     //text('Throttle', topX+rightThrottleIdleX1+13, topY+rightThrottleIdleY1+30);
     // right throttle idle contact made
-    strokeWeight(2);
+    strokeWeight(3);
     stroke('red');//color
-    line(rightThrottleContactCircle1[0]+6,rightThrottleContactCircle1[1],rightThrottleContactCircle2[0]-6,rightThrottleContactCircle2[1]);
+    line(rightThrottleContactCircle1[0]+6,rightThrottleContactCircle1[1],rightThrottleContactCircle2[0]-6,rightThrottleContactCircle2[1]);// right throttle contacts
   }
   else {
     // right throttle at power up
@@ -1192,9 +1202,10 @@ function drawRightThrottle() {
     rect(topX+rightThrottleIdleX1, topY+rightThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
     
     // right throttle power contact broken
-    strokeWeight(2);
+    strokeWeight(3);
     stroke('red');//color
-    line(rightThrottleContactCircle1[0]+6,rightThrottleContactCircle1[1],rightThrottleContactCircle2[0]-6,rightThrottleContactCircle2[1]-contactsOpenHeight);
+    line(rightThrottleContactCircle1[0]+6,rightThrottleContactCircle1[1],rightThrottleContactCircle2[0]-6,rightThrottleContactCircle2[1]-contactsOpenHeight);// right throttle contacts
+    strokeWeight(2);
   }
 }
 
@@ -1217,7 +1228,7 @@ function drawLeftThrottleIdleVerticalContactLines() {
 function drawRightThrottleIdleVerticalContactLines() {
   strokeWeight(1);
   stroke('black');//color
-  drawingContext.setLineDash([5, 5]);//turn on dashed lines
+  drawingContext.setLineDash([5, 5]);//turn on dashed lines ***************************************************
   line(topX+rightThrottlePowerX1+40,topY+rightThrottlePowerY1+50,topX+rightThrottlePowerX1+40,topY+rightThrottlePowerY1+100);
   line(topX+rightThrottleIdleX1+40,topY+rightThrottleIdleY1+52,topX+rightThrottleIdleX1+40,topY+rightThrottleIdleY1+100);
   line(topX+rightThrottleIdleX1-60,topY+rightThrottleIdleY1+100,topX+rightThrottleIdleX1+40,topY+rightThrottleIdleY1+100);
@@ -1229,7 +1240,7 @@ function drawRightThrottleIdleVerticalContactLines() {
     //power
     line(topX+rightThrottleIdleX1-60,topY+rightThrottleIdleY1+100,topX+rightThrottleIdleX1-60,topY+rightThrottleIdleY1+152);
   }
-  drawingContext.setLineDash([]);//turn off dashed lines
+  drawingContext.setLineDash([]);//turn off dashed lines ******************************************************
 }
 
 // touches here ***********************
