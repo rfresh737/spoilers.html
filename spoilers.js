@@ -1,7 +1,6 @@
-let version = 'v4.1';
-// test 2222 4.1 branch
+let version = 'v4.2';
+// test 2222
 // 3333 3333
-
 let topX = 10;
 let topY = 0;
 let _POWER = false;
@@ -203,7 +202,7 @@ function preload() {
 function setup() {
   //scale(2,2)
   //cnv = createCanvas(1190, 760);
-
+  
 }
 
 //--------------------------------------------------------------------------------------------
@@ -248,7 +247,7 @@ function draw() {
   // fill('blue');
   // circle(soundToggleButtonX, soundToggleButtonY,10);
   // circle(soundToggleButtonX+soundToggleButtonWidth, soundToggleButtonY+soundToggleButtonHeight,10);
-  
+
 //text(window.navigator.userAgent, 10, 24);
 // Firefox
 // Edg
@@ -271,7 +270,7 @@ function draw() {
   text('Programming by ralphfreshour@gmail.com.', 10, 645);
   text('For Training Purposes Only.', 10, 670);
   text('(Formatted for iPad screens only)', 10, 695);
-  
+
 //fill('red');
 //circle(groundSpoilerArmSwitchToggleX,groundSpoilerArmSwitchToggleY,10);
 //circle(groundSpoilerArmSwitchToggleX + groundSpoilerArmSwitchToggleWidth,groundSpoilerArmSwitchToggleY + groundSpoilerArmSwitchToggleHeight,10);
@@ -402,7 +401,7 @@ function draw() {
     fill('black');//color
   }
   circle(botGroundSpoilerArmContactCircle4[0],botGroundSpoilerArmContactCircle4[1],botGroundSpoilerArmContactCircle4[2]);
-
+  
   //primary hydraulic valve electrical lines ***************************************************************************
   strokeWeight(2);
   stroke('red');//color
@@ -443,7 +442,7 @@ function draw() {
   }
   strokeWeight(2);
   line(topGroundSpoilerArmContactCircle4[0]+6,topY+primaryHydraulicValveY,topX+primaryHydraulicValveX,topY+primaryHydraulicValveY);//line after ground spoiler contact to primary hydraulic valve
-
+  
   //secondary hydraulic valve electrical lines *************************************************************************
   strokeWeight(2);
   stroke('red');//color
@@ -500,7 +499,7 @@ function draw() {
   //fill('blue');
   text('Idle', topX+leftThrottleIdleContactsTextX, topY+leftThrottleIdleContactsTextY);
   text('Idle', topX+rightThrottleIdleContactsTextX, topY+rightThrottleIdleContactsTextY);
-
+  
   fill('black');
   text('Power', topX+leftThrottlePowerX1-52, topY+leftThrottlePowerY1+30);
   //text('Power', topX+rightThrottlePowerX1+86, topY+leftThrottlePowerY1+30);
@@ -745,7 +744,7 @@ function spoilerPanelsUp() {
   fill('gray');
   stroke('gray');//color
   circle(topX+spoilerPanelLocationX+266,topY+spoilerPanelLocationY+320,10);
- 
+  
   beginShape();// spoiler panel up
   vertex(topX+spoilerPanelLocationX+271,topY+spoilerPanelLocationY+317.5);
   vertex(topX+spoilerPanelLocationX+410,topY+spoilerPanelLocationY+416);
@@ -784,7 +783,7 @@ function spoilerPanelsDown() {
   arc(topX+spoilerPanelLocationX+318,topY+spoilerPanelLocationY+982,1100,1100,radians(258),radians(284), CHORD);
   //fill('red');
   //circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+500,20);
-
+  
   fill('gray');
   stroke('black');//color
   strokeWeight(1);
@@ -1098,7 +1097,7 @@ function drawRightThrottleToggle() {
   fill('black');
   strokeWeight(0);
   text('Throttle', topX+rightThrottleToggleButtonTextX+31, topY+rightThrottleToggleButtonTextY-40);
-    text('Toggle', topX+rightThrottleToggleButtonTextX+34, topY+rightThrottleToggleButtonTextY+0);
+  text('Toggle', topX+rightThrottleToggleButtonTextX+34, topY+rightThrottleToggleButtonTextY+0);
 }
 
 function drawResetToggle() {
