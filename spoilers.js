@@ -1,3 +1,5 @@
+//import {OPEN} from "./p5";
+
 let version = 'v4.3';
 
 // test 2222
@@ -175,7 +177,7 @@ let debugging = true;
 //let debugCounter = 0;
 //let sound;
 //let first_event = 0;
-let cnv;
+let ctx;
 
 let zoomMinusButtonX = 10;//soundToggleButtonX - 650;
 let zoomMinusButtonY = leftThrottlePowerY1;
@@ -204,7 +206,7 @@ function preload() {
 
 function setup() {
   //scale(2,2)
-  //cnv = createCanvas(1190, 760);
+  //ctx = createCanvas(1190, 760);
   
 }
 
@@ -231,9 +233,10 @@ function canvasPressed() {
 let _BG_COLOR = '#ffdfbf'; //
 
 function draw() {
-  //cnv = createCanvas(xx*sxx, yy*syy);
-  cnv = createCanvas(xx*sxx, yy*syy);
-  cnv.scale(sxx,syy);
+  //let c = document.getElementById("idcanvas");
+  //ctx = c.getContext("2d");
+  ctx = createCanvas(xx*sxx, yy*syy);
+  ctx.scale(sxx,syy);
   background(_BG_COLOR);
   //background('#bfdfff'); // light Doger blue
   //background('#ffbbff'); // light magenta
@@ -273,10 +276,10 @@ function draw() {
   text('Programming by ralphfreshour@gmail.com.', 10, 645);
   text('For Training Purposes Only.', 10, 670);
   text('(Formatted for iPad screens only)', 10, 695);
-
-//fill('red');
-//circle(groundSpoilerArmSwitchToggleX,groundSpoilerArmSwitchToggleY,10);
-//circle(groundSpoilerArmSwitchToggleX + groundSpoilerArmSwitchToggleWidth,groundSpoilerArmSwitchToggleY + groundSpoilerArmSwitchToggleHeight,10);
+  
+  //fill('red');
+  //circle(groundSpoilerArmSwitchToggleX,groundSpoilerArmSwitchToggleY,10);
+  //circle(groundSpoilerArmSwitchToggleX + groundSpoilerArmSwitchToggleWidth,groundSpoilerArmSwitchToggleY + groundSpoilerArmSwitchToggleHeight,10);
   
   stroke('lightgray');//color
   strokeWeight(0);
@@ -284,7 +287,7 @@ function draw() {
   pipeLength = pipeSegment630;
 //    X                                        Y                              W           H
   rect((topX+primaryHydraulicValveX)-pipeWidth,topY+primaryHydraulicValveY-60,pipeWidth*2,pipeLength-pipeWidth*2);
-
+  
 //electrical contact circles ****************************************************************************************
 // SET TOP CONTACT STATES  ------------------------------------------------
   if (leftThrottleIdleFlag == _POWER) {
@@ -511,8 +514,10 @@ function draw() {
   text('Combined/Utility/Auxiliary', topX+combinedUtilityAuxTextX, topY+combinedUtilityAuxTextY);
   text('Primary Valve', topX+primaryValveIDTextX, topY+primaryHydraulicValveY+8);
   text('Secondary Valve', topX+secondaryValveIDTextX, topY+secondaryHydraulicValveY+8);
-
+  
 //================================================================================
+  drawSpoilerPanels();
+  
   drawLeftThrottle();
   
   drawRightThrottle();
@@ -520,8 +525,6 @@ function draw() {
   drawLeftThrottleIdleVerticalContactLines();
   
   drawRightThrottleIdleVerticalContactLines();
-  
-  //drawSpoilerPanels();
   
   drawGroundSpoilerArmSwitch();
   
@@ -541,7 +544,6 @@ function draw() {
   drawGroundSpoilerTestSwitch();
   
   previousSpoilerState = drawHydraulicPipingLogic();
-  drawSpoilerPanels();
 //drawingContext.setLineDash([]);//turn off dashed lines
 
 //===========================================================================
@@ -718,8 +720,11 @@ function drawSpoilerPanels() {
       //spoilerPanelsDown();
     }
     else {
-      //spoilerPanelsUp();
+      spoilerPanels_LargeGrayArc();
+      spoilerPanelsUp();
+      spoilerPanelsHalf();
       spoilerPanelsDown();
+      spoilerPanels_LargeGrayArc();
     }
   }
   if (leftThrottleIdleFlag == _POWER && rightThrottleIdleFlag == _POWER) {
@@ -746,18 +751,18 @@ function playSound() {
 function spoilerPanelsUp() {
   fill('gray');
   stroke('gray');//color
-  circle(topX+spoilerPanelLocationX+266,topY+spoilerPanelLocationY+320,10);
+  circle(topX+spoilerPanelLocationX+283,topY+spoilerPanelLocationY+294,10);
   
   beginShape();// spoiler panel up
-  vertex(topX+spoilerPanelLocationX+271,topY+spoilerPanelLocationY+317.5);
+  vertex(topX+spoilerPanelLocationX+285,topY+spoilerPanelLocationY+289);
   vertex(topX+spoilerPanelLocationX+410,topY+spoilerPanelLocationY+416);
   vertex(topX+spoilerPanelLocationX+393,topY+spoilerPanelLocationY+438);
-  vertex(topX+spoilerPanelLocationX+260,topY+spoilerPanelLocationY+322);
+  vertex(topX+spoilerPanelLocationX+280,topY+spoilerPanelLocationY+297);
   endShape();
   fill(_BG_COLOR);
   stroke(_BG_COLOR);//color
-  //stroke('red');//color
-  //fill('red');
+  //stroke('cyan');//color
+  //fill('cyan');
   //  x                                   y                         w    h            start        stop
   arc(topX+spoilerPanelLocationX-34,topY+spoilerPanelLocationY+787,1100,1100,radians(298),radians(324), CHORD);
   
@@ -766,6 +771,65 @@ function spoilerPanelsUp() {
   strokeWeight(1);
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
   
+}
+
+function spoilerPanelsHalf() {
+  fill('gray');//gray end small circle
+  stroke('gray');//gray end small circle
+  circle(topX+spoilerPanelLocationX+240,topY+spoilerPanelLocationY+360,10);
+  
+  fill('gray');//gray end small circle
+  stroke('gray');//gray end small circle
+  beginShape();// spoiler panel up
+  vertex(topX+spoilerPanelLocationX+238,topY+spoilerPanelLocationY+354);
+  vertex(topX+spoilerPanelLocationX+408,topY+spoilerPanelLocationY+413);
+  vertex(topX+spoilerPanelLocationX+393,topY+spoilerPanelLocationY+440);
+  vertex(topX+spoilerPanelLocationX+236,topY+spoilerPanelLocationY+363);
+  endShape();
+  fill(_BG_COLOR);
+  stroke(_BG_COLOR);//color
+  //stroke('red');//bottom spoiler panel arc shape
+  //fill('red');
+  //  x                                   y                         w    h            start        stop
+  arc(topX+spoilerPanelLocationX+90,topY+spoilerPanelLocationY+893,1100,1100,radians(240),radians(320), OPEN);
+  
+  fill('gray');//gray
+  stroke('black');//black end large circle
+  strokeWeight(1);
+  circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
+  
+}
+function spoilerPanels_NewPanel() {
+  fill('green');//gray end small circle
+  stroke('green');//gray end small circle
+  circle(topX+spoilerPanelLocationX+228,topY+spoilerPanelLocationY+390,10);
+  
+  fill('red');//gray end small circle
+  stroke('red');//gray end small circle
+  beginShape();// spoiler panel up
+  vertex(topX+spoilerPanelLocationX+226,topY+spoilerPanelLocationY+385);
+  vertex(topX+spoilerPanelLocationX+408,topY+spoilerPanelLocationY+413);
+  vertex(topX+spoilerPanelLocationX+393,topY+spoilerPanelLocationY+440);
+  vertex(topX+spoilerPanelLocationX+226,topY+spoilerPanelLocationY+394);
+  endShape();
+  fill(_BG_COLOR);
+  stroke(_BG_COLOR);//color
+  //stroke('red');//bottom spoiler panel arc shape
+  //fill('red');
+  //  x                                   y                         w    h            start        stop
+  arc(topX+spoilerPanelLocationX+170,topY+spoilerPanelLocationY+942,1100,1100,radians(240),radians(320), CHORD);
+  
+  fill('blue');//gray
+  stroke('blue');//gray end large circle
+  strokeWeight(1);
+  circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
+  
+}
+function spoilerPanels_LargeGrayArc() {
+  stroke('#c0c0c0');//bottom spoiler panel arc shape
+  fill(200,40);// 200==color(0-255), 40==transparency(0-255)
+  //  x                                   y                         w    h          start      stop
+  arc(topX+spoilerPanelLocationX+412,topY+spoilerPanelLocationY+430,382,382,radians(178),radians(228));
 }
 
 function spoilerPanelsDown() {
@@ -783,7 +847,7 @@ function spoilerPanelsDown() {
   //fill('red');
   //stroke('red');//color
   //  x                          y                                  w    h                 start        stop
-  arc(topX+spoilerPanelLocationX+318,topY+spoilerPanelLocationY+982,1100,1100,radians(258),radians(284), CHORD);
+  arc(topX+spoilerPanelLocationX+318,topY+spoilerPanelLocationY+981,1100,1100,radians(258),radians(284), OPEN);
   //fill('red');
   //circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+500,20);
   
@@ -1028,7 +1092,7 @@ function drawHydraulicPipingLogic() {
   fill('red');
   //    X                                      Y                              W           H
   rect((topX+primaryHydraulicValveX)-pipeWidth,topY+primaryHydraulicValveY-60,pipeWidth*2,pipeLength-pipeWidth*2);
-  
+
   drawSpoiler_CAS_Messages();
   
   return currentSpoilerState;
@@ -1489,8 +1553,8 @@ function mouse_is_pressed() {
 }
 
 
-//cnv.addEventListener('mousemove', mouse_move_into_target, false);
-//cnv.addEventListener('mouseout', mouse_out_of_target, false);
+//ctx.addEventListener('mousemove', mouse_move_into_target, false);
+//ctx.addEventListener('mouseout', mouse_out_of_target, false);
 
 function mouseMoved(){
   if (mouseX > 460 && mouseX < 570) {
