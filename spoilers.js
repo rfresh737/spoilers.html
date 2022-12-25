@@ -284,7 +284,7 @@ function draw() {
   pipeLength = pipeSegment630;
 //    X                                        Y                              W           H
   rect((topX+primaryHydraulicValveX)-pipeWidth,topY+primaryHydraulicValveY-60,pipeWidth*2,pipeLength-pipeWidth*2);
-  
+  //drawSpoilerPanels();
 //electrical contact circles ****************************************************************************************
 // SET TOP CONTACT STATES  ------------------------------------------------
   if (leftThrottleIdleFlag == _POWER) {
@@ -511,9 +511,8 @@ function draw() {
   text('Combined/Utility/Auxiliary', topX+combinedUtilityAuxTextX, topY+combinedUtilityAuxTextY);
   text('Primary Valve', topX+primaryValveIDTextX, topY+primaryHydraulicValveY+8);
   text('Secondary Valve', topX+secondaryValveIDTextX, topY+secondaryHydraulicValveY+8);
-  
+
 //================================================================================
-  drawSpoilerPanels();
   
   drawLeftThrottle();
   
@@ -539,6 +538,8 @@ function draw() {
   drawSoundToggle();
   
   drawGroundSpoilerTestSwitch();
+  
+  //drawSpoilerPanels();
   
   previousSpoilerState = drawHydraulicPipingLogic();
 //drawingContext.setLineDash([]);//turn off dashed lines
@@ -709,19 +710,21 @@ function flash_NO_GND_SPOILERS() {
   // flashRedCounter++;
   // console.log('--------------------------');
 }
-
+function wait(ms){
+  var start = new Date().getTime();
+  var end = start;
+  while(end < start + ms) {
+    end = new Date().getTime();
+  }
+}
 function drawSpoilerPanels() {
   if (leftThrottleIdleFlag == _IDLE && rightThrottleIdleFlag == _IDLE) {
     if (groundSpoilerArmSwitchFlag == _ARMED) {
       spoilerPanelsUp();
-      //spoilerPanelsDown();
     }
     else {
-      //spoilerPanels_LargeGrayArc();
-      spoilerPanelsUp();
-      //spoilerPanelsHalf();
-      //spoilerPanelsDown();
-      //spoilerPanels_LargeGrayArc();
+      spoilerPanelsDown();
+      //wait(1000);
     }
   }
   if (leftThrottleIdleFlag == _POWER && rightThrottleIdleFlag == _POWER) {
@@ -745,67 +748,76 @@ function playSound() {
   }
 }
 
-function OPEN() {
+// function OPEN() {
 
-}
+// }
+// function radians(number) {
+//   return undefined;
+// }
+// function PIE() {
 
-function radians(number) {
-  return undefined;
-}
+// }
+
 
 function spoilerPanelsUp() {
   fill('gray');
   stroke('gray');//color
-  circle(topX+spoilerPanelLocationX+283,topY+spoilerPanelLocationY+294,10);
-  
+  //fill('red');
+  //stroke('red');
+  circle(topX + spoilerPanelLocationX + 283,topY + spoilerPanelLocationY + 294,10);
+
   beginShape();// spoiler panel up
-  vertex(topX+spoilerPanelLocationX+285,topY+spoilerPanelLocationY+289);
-  vertex(topX+spoilerPanelLocationX+410,topY+spoilerPanelLocationY+416);
-  vertex(topX+spoilerPanelLocationX+393,topY+spoilerPanelLocationY+438);
-  vertex(topX+spoilerPanelLocationX+280,topY+spoilerPanelLocationY+297);
+  vertex(topX + spoilerPanelLocationX + 285,topY + spoilerPanelLocationY + 289);
+  vertex(topX + spoilerPanelLocationX + 410,topY + spoilerPanelLocationY + 416);
+  vertex(topX + spoilerPanelLocationX + 393,topY + spoilerPanelLocationY + 438);
+  vertex(topX + spoilerPanelLocationX + 280,topY + spoilerPanelLocationY + 297);
   endShape();
+  
   fill(_BG_COLOR);
   stroke(_BG_COLOR);//color
-  stroke('cyan');//color
-  fill('cyan');
-  //  x                                   y                         w    h            start        stop
-arc(topX+spoilerPanelLocationX-34,topY+spoilerPanelLocationY+787,1100,1100,radians(298),radians(324),OPEN);
-fill('gray');
-stroke('black');//color
-strokeWeight(1);
-circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
-
+  //stroke('cyan');//color
+  //fill('cyan');
+  //  x                                   y                        w    h            start        stop
+  arc(topX + spoilerPanelLocationX - 93,topY + spoilerPanelLocationY + 700,1100,1100,radians(310),radians(340),OPEN);
+  
+  fill('gray');
+  stroke('black');//color
+  strokeWeight(1);
+  circle(topX + spoilerPanelLocationX + 400,topY + spoilerPanelLocationY + 426,28);
 }
 
 function spoilerPanelsHalf() {
   fill('gray');//gray end small circle
   stroke('gray');//gray end small circle
+  //fill('red');
+  //stroke('red');
   circle(topX+spoilerPanelLocationX+240,topY+spoilerPanelLocationY+360,10);
   
   fill('gray');//gray end small circle
   stroke('gray');//gray end small circle
   beginShape();// spoiler panel up
-  vertex(topX+spoilerPanelLocationX+238,topY+spoilerPanelLocationY+354);
+  vertex(topX+spoilerPanelLocationX+241,topY+spoilerPanelLocationY+355);
   vertex(topX+spoilerPanelLocationX+408,topY+spoilerPanelLocationY+413);
   vertex(topX+spoilerPanelLocationX+393,topY+spoilerPanelLocationY+440);
-  vertex(topX+spoilerPanelLocationX+236,topY+spoilerPanelLocationY+363);
+  vertex(topX+spoilerPanelLocationX+240,topY+spoilerPanelLocationY+363);
   endShape();
   fill(_BG_COLOR);
   stroke(_BG_COLOR);//color
-  //stroke('red');//bottom spoiler panel arc shape
-  //fill('red');
+  //stroke('cyan');//bottom spoiler panel arc shape
+  //fill('cyan');
   //  x                                   y                         w    h            start        stop
-  arc(topX+spoilerPanelLocationX+90,topY+spoilerPanelLocationY+893,1100,1100,radians(240),radians(320),OPEN);
+  arc(topX+spoilerPanelLocationX+76,topY+spoilerPanelLocationY+888,1100,1100,radians(280),radians(310),OPEN);
   
   fill('gray');//gray
   stroke('black');//black end large circle
   strokeWeight(1);
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
-  
 }
 function spoilerPanels_NewPanel() {
-  fill('green');//gray end small circle
-  stroke('green');//gray end small circle
+  fill('gray');
+  stroke('gray');//color
+  //fill('red');
+  //stroke('red');
   circle(topX+spoilerPanelLocationX+228,topY+spoilerPanelLocationY+390,10);
   
   fill('red');//gray end small circle
@@ -827,16 +839,17 @@ function spoilerPanels_NewPanel() {
   stroke('blue');//gray end large circle
   strokeWeight(1);
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
-  
 }
 
-function PIE() {
-
-}
-
-function spoilerPanels_LargeGrayArc() {
+function spoilerPanels_paintLargeGrayArc() {
   stroke('#c0c0c0');//bottom spoiler panel arc shape
-  fill(200,40);// 200==color(0-255), 40==transparency(0-255)
+  fill(200,150);// 200==color(0-255), 40==transparency(0-255)
+  //  x                                   y                         w    h          start      stop
+  arc(topX+spoilerPanelLocationX+412,topY+spoilerPanelLocationY+430,382,382,radians(178),radians(228),PIE);
+}
+function spoilerPanels_clearLargeGrayArc() {
+  fill(_BG_COLOR);
+  stroke(_BG_COLOR);//color
   //  x                                   y                         w    h          start      stop
   arc(topX+spoilerPanelLocationX+412,topY+spoilerPanelLocationY+430,382,382,radians(178),radians(228),PIE);
 }
@@ -844,6 +857,8 @@ function spoilerPanels_LargeGrayArc() {
 function spoilerPanelsDown() {
   fill('gray');
   stroke('gray');//color
+  //fill('red');
+  //stroke('red');
   circle(topX+spoilerPanelLocationX+226,topY+spoilerPanelLocationY+435,10);
   beginShape();// spoiler panel down
   vertex(topX+spoilerPanelLocationX+228,topY+spoilerPanelLocationY+430);
@@ -853,8 +868,8 @@ function spoilerPanelsDown() {
   endShape();
   fill(_BG_COLOR);
   stroke(_BG_COLOR);//color
-  //fill('red');
-  //stroke('red');//color
+  //stroke('cyan');//bottom spoiler panel arc shape
+  //fill('cyan');
   //  x                          y                                  w    h                 start        stop
   arc(topX+spoilerPanelLocationX+318,topY+spoilerPanelLocationY+981,1100,1100,radians(258),radians(284), OPEN);
   //fill('red');
@@ -1101,7 +1116,7 @@ function drawHydraulicPipingLogic() {
   fill('red');
   //    X                                      Y                              W           H
   rect((topX+primaryHydraulicValveX)-pipeWidth,topY+primaryHydraulicValveY-60,pipeWidth*2,pipeLength-pipeWidth*2);
-
+  drawSpoilerPanels();
   drawSpoiler_CAS_Messages();
   
   return currentSpoilerState;
