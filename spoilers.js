@@ -1,10 +1,7 @@
-//import {OPEN} from "./p5";
-
 let version = 'v4.3';
 
 // test 2222
 // 3333 3333
-
 
 let topX = 10;
 let topY = 0;
@@ -720,11 +717,11 @@ function drawSpoilerPanels() {
       //spoilerPanelsDown();
     }
     else {
-      spoilerPanels_LargeGrayArc();
+      //spoilerPanels_LargeGrayArc();
       spoilerPanelsUp();
-      spoilerPanelsHalf();
-      spoilerPanelsDown();
-      spoilerPanels_LargeGrayArc();
+      //spoilerPanelsHalf();
+      //spoilerPanelsDown();
+      //spoilerPanels_LargeGrayArc();
     }
   }
   if (leftThrottleIdleFlag == _POWER && rightThrottleIdleFlag == _POWER) {
@@ -748,6 +745,14 @@ function playSound() {
   }
 }
 
+function OPEN() {
+
+}
+
+function radians(number) {
+  return undefined;
+}
+
 function spoilerPanelsUp() {
   fill('gray');
   stroke('gray');//color
@@ -761,16 +766,15 @@ function spoilerPanelsUp() {
   endShape();
   fill(_BG_COLOR);
   stroke(_BG_COLOR);//color
-  //stroke('cyan');//color
-  //fill('cyan');
+  stroke('cyan');//color
+  fill('cyan');
   //  x                                   y                         w    h            start        stop
-  arc(topX+spoilerPanelLocationX-34,topY+spoilerPanelLocationY+787,1100,1100,radians(298),radians(324), CHORD);
-  
-  fill('gray');
-  stroke('black');//color
-  strokeWeight(1);
-  circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
-  
+arc(topX+spoilerPanelLocationX-34,topY+spoilerPanelLocationY+787,1100,1100,radians(298),radians(324),OPEN);
+fill('gray');
+stroke('black');//color
+strokeWeight(1);
+circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
+
 }
 
 function spoilerPanelsHalf() {
@@ -791,7 +795,7 @@ function spoilerPanelsHalf() {
   //stroke('red');//bottom spoiler panel arc shape
   //fill('red');
   //  x                                   y                         w    h            start        stop
-  arc(topX+spoilerPanelLocationX+90,topY+spoilerPanelLocationY+893,1100,1100,radians(240),radians(320), OPEN);
+  arc(topX+spoilerPanelLocationX+90,topY+spoilerPanelLocationY+893,1100,1100,radians(240),radians(320),OPEN);
   
   fill('gray');//gray
   stroke('black');//black end large circle
@@ -817,7 +821,7 @@ function spoilerPanels_NewPanel() {
   //stroke('red');//bottom spoiler panel arc shape
   //fill('red');
   //  x                                   y                         w    h            start        stop
-  arc(topX+spoilerPanelLocationX+170,topY+spoilerPanelLocationY+942,1100,1100,radians(240),radians(320), CHORD);
+  arc(topX+spoilerPanelLocationX+170,topY+spoilerPanelLocationY+942,1100,1100,radians(240),radians(320),OPEN);
   
   fill('blue');//gray
   stroke('blue');//gray end large circle
@@ -825,11 +829,16 @@ function spoilerPanels_NewPanel() {
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
   
 }
+
+function PIE() {
+
+}
+
 function spoilerPanels_LargeGrayArc() {
   stroke('#c0c0c0');//bottom spoiler panel arc shape
   fill(200,40);// 200==color(0-255), 40==transparency(0-255)
   //  x                                   y                         w    h          start      stop
-  arc(topX+spoilerPanelLocationX+412,topY+spoilerPanelLocationY+430,382,382,radians(178),radians(228));
+  arc(topX+spoilerPanelLocationX+412,topY+spoilerPanelLocationY+430,382,382,radians(178),radians(228),PIE);
 }
 
 function spoilerPanelsDown() {
