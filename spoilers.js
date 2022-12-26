@@ -1,6 +1,5 @@
 let version = 'v4.4';
 
-// 3333 333
 //https://stackoverflow.com/questions/63716852/p5js-why-is-my-bg-framerate-not-refreshing-properly
 
 let topX = 10;
