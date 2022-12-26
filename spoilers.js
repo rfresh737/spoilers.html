@@ -195,6 +195,7 @@ let sxx = 1.0;
 let syy = 1.0;
 let sxxChange = 0.05;
 let syyChange = 0.05;
+let fps = 10;
 
 function preload() {
 
@@ -203,7 +204,8 @@ function preload() {
 function setup() {
   //scale(2,2)
   //ctx = createCanvas(1190, 760);
-  
+  //frameRate(fps);
+  //console.log(getFrameRate());
 }
 
 //--------------------------------------------------------------------------------------------
@@ -763,8 +765,26 @@ function spoilerPanelsUp() {
   stroke('gray');//color
   //fill('red');
   //stroke('red');
+  var i = 0;
+  var x = 226; //283;
+  var y = 435; //294;
+  //noLoop();
+  //frameRate(fps);
+  // for (i=0;i<150;i++) {
+  //   //circle(topX+spoilerPanelLocationX+226,topY+spoilerPanelLocationY+435,10);
+  //   circle(topX + spoilerPanelLocationX + x,topY + spoilerPanelLocationY - y,10);
   circle(topX + spoilerPanelLocationX + 283,topY + spoilerPanelLocationY + 294,10);
-
+  //   x = x + 0.25;
+  //   y = y - 1.5;
+  //   //redraw(100);
+  //   //for (ii=0.0;ii<2000000;ii++) {
+  //     //ii++;
+  //   //}
+  //   //wait(30);
+  // }
+  //frameRate(fps);
+  //loop();
+  //return;
   beginShape();// spoiler panel up
   vertex(topX + spoilerPanelLocationX + 285,topY + spoilerPanelLocationY + 289);
   vertex(topX + spoilerPanelLocationX + 410,topY + spoilerPanelLocationY + 416);
