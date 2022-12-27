@@ -197,6 +197,11 @@ let sxxChange = 0.05;
 let syyChange = 0.05;
 let fps = 10;
 
+let spoilersAnimating = false;
+let spoilersArmClick = "N/A";
+let spoilersLastCommand = "";
+let spoilersAnimatingCount = 0;
+
 function preload() {
 
 }
@@ -721,11 +726,74 @@ function wait(ms){
 function drawSpoilerPanels() {
   if (leftThrottleIdleFlag == _IDLE && rightThrottleIdleFlag == _IDLE) {
     if (groundSpoilerArmSwitchFlag == _ARMED) {
-      spoilerPanelsUp();
+      // Spoilers Up
+      if (spoilersLastCommand == "up") {
+        spoilerPanelsUp();
+        return;
+      }
+      if (spoilersArmClick == "Armed") {
+        //spoilersAnimating = 1;
+        spoilersAnimatingCount = 0;
+      }
+      spoilersAnimatingCount++;
+      if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
+        spoilerPanels25();
+        console.log("25");
+      }
+      if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
+        spoilerPanelsHalf();
+        console.log("50");
+      }
+      if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
+        spoilerPanels75();
+        console.log("75");
+      }
+      if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
+        spoilerPanelsUp();
+        console.log("100");
+      }
+      if (spoilersAnimatingCount == 91) {
+        spoilersArmClick = "N/A"; // stop spoiler animation
+        spoilersAnimatingCount = 91;
+        spoilersLastCommand = "up";
+        console.log("Done" + spoilersAnimatingCount);
+        console.log("------------------------------------------");
+      }
     }
     else {
-      spoilerPanelsDown();
-      //wait(1000);
+      // Spoilers Down
+      if (spoilersLastCommand == "down") {
+        spoilerPanelsDown();
+        return;
+      }
+      if (spoilersArmClick == "NotArmed") {
+        //spoilersAnimating = 1;
+        spoilersAnimatingCount = 0;
+      }
+      spoilersAnimatingCount++;
+      if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
+        spoilerPanels75();
+        console.log("75");
+      }
+      if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
+        spoilerPanelsHalf();
+        console.log("50");
+      }
+      if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
+        spoilerPanels25();
+        console.log("25");
+      }
+      if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
+        spoilerPanelsDown();
+        console.log("0");
+      }
+      if (spoilersAnimatingCount == 91) {
+        spoilersArmClick = "N/A"; // stop spoiler animation
+        spoilersAnimatingCount = 91;
+        spoilersLastCommand = "down";
+        console.log("Done" + spoilersAnimatingCount);
+        console.log("------------------------------------------");
+      }
     }
   }
   if (leftThrottleIdleFlag == _POWER && rightThrottleIdleFlag == _POWER) {
@@ -797,7 +865,7 @@ function spoilerPanelsUp() {
   //stroke('cyan');//color
   //fill('cyan');
   //  x                                   y                        w    h            start        stop
-  arc(topX + spoilerPanelLocationX - 93,topY + spoilerPanelLocationY + 700,1100,1100,radians(310),radians(340),OPEN);
+  arc(topX + spoilerPanelLocationX - 93,topY + spoilerPanelLocationY + 701,1100,1100,radians(310),radians(340),OPEN);
   
   fill('gray');
   stroke('black');//color
@@ -815,17 +883,17 @@ function spoilerPanelsHalf() {
   fill('gray');//gray end small circle
   stroke('gray');//gray end small circle
   beginShape();// spoiler panel up
-  vertex(topX+spoilerPanelLocationX+241,topY+spoilerPanelLocationY+355);
+  vertex(topX+spoilerPanelLocationX+243,topY+spoilerPanelLocationY+355);
   vertex(topX+spoilerPanelLocationX+408,topY+spoilerPanelLocationY+413);
   vertex(topX+spoilerPanelLocationX+393,topY+spoilerPanelLocationY+440);
-  vertex(topX+spoilerPanelLocationX+240,topY+spoilerPanelLocationY+363);
+  vertex(topX+spoilerPanelLocationX+242,topY+spoilerPanelLocationY+363);
   endShape();
   fill(_BG_COLOR);
   stroke(_BG_COLOR);//color
   //stroke('cyan');//bottom spoiler panel arc shape
   //fill('cyan');
   //  x                                   y                         w    h            start        stop
-  arc(topX+spoilerPanelLocationX+76,topY+spoilerPanelLocationY+888,1100,1100,radians(280),radians(310),OPEN);
+  arc(topX+spoilerPanelLocationX+76,topY+spoilerPanelLocationY+889,1100,1100,radians(280),radians(310),OPEN);
   
   fill('gray');//gray
   stroke('black');//black end large circle
@@ -891,6 +959,60 @@ function spoilerPanelsDown() {
   //fill('cyan');
   //  x                          y                                  w    h                 start        stop
   arc(topX+spoilerPanelLocationX+318,topY+spoilerPanelLocationY+981,1100,1100,radians(258),radians(284), OPEN);
+  //fill('red');
+  //circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+500,20);
+  
+  fill('gray');
+  stroke('black');//color
+  strokeWeight(1);
+  circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+425,28);
+}
+function spoilerPanels25() {
+  fill('gray');
+  stroke('gray');//color
+  //fill('red');
+  //stroke('red');
+  circle(topX+spoilerPanelLocationX+231,topY+spoilerPanelLocationY+398,10);
+  //return;
+  beginShape();// spoiler panel down
+  vertex(topX+spoilerPanelLocationX+234,topY+spoilerPanelLocationY+393);
+  vertex(topX+spoilerPanelLocationX+408,topY+spoilerPanelLocationY+412);
+  vertex(topX+spoilerPanelLocationX+401,topY+spoilerPanelLocationY+440);
+  vertex(topX+spoilerPanelLocationX+234,topY+spoilerPanelLocationY+403);
+  endShape();
+  fill(_BG_COLOR);
+  stroke(_BG_COLOR);//color
+  //stroke('cyan');//bottom spoiler panel arc shape
+  //fill('cyan');
+  //  x                          y                                  w    h                 start        stop
+  arc(topX+spoilerPanelLocationX+202,topY+spoilerPanelLocationY+951,1100,1100,radians(268),radians(296), OPEN);
+  //fill('red');
+  //circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+500,20);
+  
+  fill('gray');
+  stroke('black');//color
+  strokeWeight(1);
+  circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+425,28);
+}
+function spoilerPanels75() {
+  fill('gray');
+  stroke('gray');//color
+  //fill('red');
+  //stroke('red');
+  circle(topX+spoilerPanelLocationX+256,topY+spoilerPanelLocationY+320,10);
+  //return;
+  beginShape();// spoiler panel down
+  vertex(topX+spoilerPanelLocationX+259,topY+spoilerPanelLocationY+315);
+  vertex(topX+spoilerPanelLocationX+408,topY+spoilerPanelLocationY+413);
+  vertex(topX+spoilerPanelLocationX+401,topY+spoilerPanelLocationY+441);
+  vertex(topX+spoilerPanelLocationX+255,topY+spoilerPanelLocationY+325);
+  endShape();
+  fill(_BG_COLOR);
+  stroke(_BG_COLOR);//color
+  //stroke('cyan');//bottom spoiler panel arc shape
+  //fill('cyan');
+  //  x                          y                                  w    h                 start        stop
+  arc(topX+spoilerPanelLocationX-20,topY+spoilerPanelLocationY+801,1100,1100,radians(295),radians(325), OPEN);
   //fill('red');
   //circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+500,20);
   
@@ -1565,9 +1687,15 @@ function mousePressed() { // mouse clicks here ***********************
     if (mouseY > topY+groundSpoilerArmSwitchY*syy && mouseY < topY+groundSpoilerArmSwitchY*syy + groundSpoilerArmSwitchHeight*syy) {
       if (groundSpoilerArmSwitchFlag == _ARMED) {
         groundSpoilerArmSwitchFlag = _NOTARMED; //going to unarmed
+        spoilersArmClick = "NotArmed";
+        spoilersAnimatingCount = 0;
+        spoilersLastCommand = "";
       }
       else {
         groundSpoilerArmSwitchFlag = _ARMED; //going to arm
+        spoilersArmClick = "Armed";
+        spoilersAnimatingCount = 0;
+        spoilersLastCommand = "";
       }
     }
   }
