@@ -2,6 +2,11 @@ let version = 'v4.4';
 
 //https://stackoverflow.com/questions/63716852/p5js-why-is-my-bg-framerate-not-refreshing-properly
 
+//let spoilersAnimating = false;
+//let spoilersArmClick = "NotArmed";
+//let spoilersLastCommand = "down";
+let spoilersAnimatingCount = 91;
+
 let topX = 10;
 let topY = 0;
 let _POWER = false;
@@ -197,12 +202,6 @@ let sxxChange = 0.05;
 let syyChange = 0.05;
 let fps = 10;
 
-let spoilersAnimating = false;
-let spoilersArmClick = "N/A";
-let spoilersLastCommand = "";
-let spoilersAnimatingCount = 0;
-
-
 function preload() {
 
 }
@@ -280,6 +279,7 @@ function draw() {
   text('Programming by ralphfreshour@gmail.com.', 10, 645);
   text('For Training Purposes Only.', 10, 670);
   text('(Formatted for iPad screens only)', 10, 695);
+  //text('(This web page is undergoing modifications at this time!)', 10, 720);
   
   //fill('red');
   //circle(groundSpoilerArmSwitchToggleX,groundSpoilerArmSwitchToggleY,10);
@@ -728,83 +728,46 @@ function drawSpoilerPanels() {
   if (leftThrottleIdleFlag == _IDLE && rightThrottleIdleFlag == _IDLE) {
     if (groundSpoilerArmSwitchFlag == _ARMED) {
       // Spoilers Up
-      if (spoilersLastCommand == "up") {
-        spoilerPanelsUp();
-        return;
-      }
-      if (spoilersArmClick == "Armed") {
-        //spoilersAnimating = 1;
-        spoilersAnimatingCount = 0;
-      }
-      spoilersAnimatingCount++;
-      if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
-        spoilerPanels25();
-        console.log("25");
-      }
-      if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
-        spoilerPanelsHalf();
-        console.log("50");
-      }
-      if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
-        spoilerPanels75();
-        console.log("75");
-      }
-      if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
-        spoilerPanelsUp();
-        console.log("100");
-      }
       if (spoilersAnimatingCount == 91) {
-        spoilersArmClick = "N/A"; // stop spoiler animation
-        spoilersAnimatingCount = 91;
-        spoilersLastCommand = "up";
-        console.log("Done" + spoilersAnimatingCount);
-        console.log("------------------------------------------");
+        spoilerPanelsUp();
+      }
+      else {
+        spoilersAnimatingCount++;
+        if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
+          spoilerPanels25();
+        }
+        if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
+          spoilerPanelsHalf();
+        }
+        if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
+          spoilerPanels75();
+        }
+        if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
+          spoilerPanelsUp();
+        }
       }
     }
     else {
       // Spoilers Down
-      if (spoilersLastCommand == "down") {
-        spoilerPanelsDown();
-        return;
-      }
-      if (spoilersArmClick == "NotArmed") {
-        //spoilersAnimating = 1;
-        spoilersAnimatingCount = 0;
-      }
-      spoilersAnimatingCount++;
-      if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
-        spoilerPanels75();
-        console.log("75");
-      }
-      if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
-        spoilerPanelsHalf();
-        console.log("50");
-      }
-      if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
-        spoilerPanels25();
-        console.log("25");
-      }
-      if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
-        spoilerPanelsDown();
-        console.log("0");
-      }
       if (spoilersAnimatingCount == 91) {
-        spoilersArmClick = "N/A"; // stop spoiler animation
-        spoilersAnimatingCount = 91;
-        spoilersLastCommand = "down";
-        console.log("Done" + spoilersAnimatingCount);
-        console.log("------------------------------------------");
+        spoilerPanelsDown();
+      }
+      else {
+        spoilersAnimatingCount++;
+        if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
+          spoilerPanels75();
+        }
+        if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
+          spoilerPanelsHalf();
+        }
+        if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
+          spoilerPanels25();
+        }
+        if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
+          spoilerPanelsDown();
+        }
       }
     }
-  }
-  if (leftThrottleIdleFlag == _POWER && rightThrottleIdleFlag == _POWER) {
-    spoilerPanelsDown();
-  }
-  if (leftThrottleIdleFlag == _POWER && rightThrottleIdleFlag == _IDLE) {
-    spoilerPanelsDown();
-  }
-  if (leftThrottleIdleFlag == _IDLE && rightThrottleIdleFlag == _POWER) {
-    spoilerPanelsDown();
   }
   fill('black');
   stroke('black');//color
@@ -1661,14 +1624,13 @@ function mousePressed() { // mouse clicks here ***********************
   // toggle ARM switch
   if (mouseX > topX+groundSpoilerArmSwitchToggleX*sxx && mouseX < topX+groundSpoilerArmSwitchToggleX*sxx + groundSpoilerArmSwitchToggleWidth*sxx) {
     if (mouseY > topY+groundSpoilerArmSwitchToggleY*syy && mouseY < topY+groundSpoilerArmSwitchToggleY*syy + groundSpoilerArmSwitchToggleHeight*syy) {
+      spoilersAnimatingCount = 0;
       if (groundSpoilerArmSwitchFlag == _ARMED) {
         groundSpoilerArmSwitchFlag = _NOTARMED; //going to OFF
       }
       else {
         groundSpoilerArmSwitchFlag = _ARMED; //going to ON
       }
-      //flashingRedCASmessages = true;
-      //flashRedCounter = 0;
     }
   }
   //mouse clicks here ***********************
@@ -1684,22 +1646,16 @@ function mousePressed() { // mouse clicks here ***********************
     }
   }
   //mouse clicks here ***********************
-  if (mouseX > topX+groundSpoilerArmSwitchX*sxx && mouseX < topX+groundSpoilerArmSwitchX*sxx + groundSpoilerArmSwitchWidth*sxx) {
-    if (mouseY > topY+groundSpoilerArmSwitchY*syy && mouseY < topY+groundSpoilerArmSwitchY*syy + groundSpoilerArmSwitchHeight*syy) {
-      if (groundSpoilerArmSwitchFlag == _ARMED) {
-        groundSpoilerArmSwitchFlag = _NOTARMED; //going to unarmed
-        spoilersArmClick = "NotArmed";
-        spoilersAnimatingCount = 0;
-        spoilersLastCommand = "";
-      }
-      else {
-        groundSpoilerArmSwitchFlag = _ARMED; //going to arm
-        spoilersArmClick = "Armed";
-        spoilersAnimatingCount = 0;
-        spoilersLastCommand = "";
-      }
-    }
-  }
+  // if (mouseX > topX+groundSpoilerArmSwitchX*sxx && mouseX < topX+groundSpoilerArmSwitchX*sxx + groundSpoilerArmSwitchWidth*sxx) {
+  //   if (mouseY > topY+groundSpoilerArmSwitchY*syy && mouseY < topY+groundSpoilerArmSwitchY*syy + groundSpoilerArmSwitchHeight*syy) {
+  //     if (groundSpoilerArmSwitchFlag == _ARMED) {
+  //       groundSpoilerArmSwitchFlag = _NOTARMED; //going to unarmed/down
+  //     }
+  //     else {
+  //       groundSpoilerArmSwitchFlag = _ARMED; //going to arm/up
+  //     }
+  //   }
+  // }
   mouse_pressed_flag = false;
 }
 
