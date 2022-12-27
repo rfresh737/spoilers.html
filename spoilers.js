@@ -4,6 +4,8 @@ let version = 'v4.5';
 //let spoilersArmClick = "NotArmed";
 //let spoilersLastCommand = "down";
 let spoilersAnimatingCount = 91;
+let leftThrottlesAnimatingCount = 21;
+let rightThrottlesAnimatingCount = 21;
 
 let topX = 10;
 let topY = 0;
@@ -289,7 +291,7 @@ function draw() {
   pipeLength = pipeSegment630;
 //    X                                        Y                              W           H
   rect((topX+primaryHydraulicValveX)-pipeWidth,topY+primaryHydraulicValveY-60,pipeWidth*2,pipeLength-pipeWidth*2);
-  //drawSpoilerPanels();
+
 //electrical contact circles ****************************************************************************************
 // SET TOP CONTACT STATES  ------------------------------------------------
   if (leftThrottleIdleFlag == _POWER) {
@@ -544,11 +546,8 @@ function draw() {
   
   drawGroundSpoilerTestSwitch();
   
-  //drawSpoilerPanels();
-  
   previousSpoilerState = drawHydraulicPipingLogic();
-//drawingContext.setLineDash([]);//turn off dashed lines
-
+  
 //===========================================================================
 //===========================================================================
 //===========================================================================
@@ -723,6 +722,7 @@ function wait(ms){
   }
 }
 function drawSpoilerPanels() {
+  //console.log('drawSpoilerPanels');
   if (leftThrottleIdleFlag == _IDLE && rightThrottleIdleFlag == _IDLE) {
     if (groundSpoilerArmSwitchFlag == _ARMED) {
       // Spoilers Up
@@ -1219,11 +1219,13 @@ function drawHydraulicPipingLogic() {
   fill('red');
   //    X                                      Y                              W           H
   rect((topX+primaryHydraulicValveX)-pipeWidth,topY+primaryHydraulicValveY-60,pipeWidth*2,pipeLength-pipeWidth*2);
+
   drawSpoilerPanels();
+  
   drawSpoiler_CAS_Messages();
   
   return currentSpoilerState;
-} // drawHydraulicPipingLogic()
+}
 
 function drawGroundSpoilerArmSwitch() {
   fill('lightgray');
@@ -1321,18 +1323,28 @@ function drawSoundToggle() {
 
 function drawLeftThrottle() {
   if (leftThrottleIdleFlag == _IDLE) {
-    // left throttle at idle
-    fill('lightgray');
-    rect(topX+leftThrottlePowerX1, topY+leftThrottlePowerY1, throttleWidth, throttleHeight, 5);//5 radius
-    
-    fill('black');
-    rect(topX+leftThrottleIdleX1, topY+leftThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
-    stroke('white');//color
-    fill('white');
-    strokeWeight(0);
-    textSize(16);
-    //text('Throttle', topX+leftThrottleIdleX1+13, topY+leftThrottleIdleY1+30);
-    
+    if (leftThrottlesAnimatingCount == 21) {
+      fill('black');
+      stroke('black');//color
+      rect(topX+leftThrottleIdleX1, topY+leftThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
+    }
+    else {
+      fill('black');
+      stroke('black');//color
+      leftThrottlesAnimatingCount++;
+      if (leftThrottlesAnimatingCount >= 0 && leftThrottlesAnimatingCount <= 5) {
+        rect(topX + leftThrottlePowerX1,topY + leftThrottlePowerY1 + 22,throttleWidth,throttleHeight,5);//5 radius
+      }
+      if (leftThrottlesAnimatingCount >= 6 && leftThrottlesAnimatingCount <= 10) {
+        rect(topX + leftThrottlePowerX1,topY + leftThrottlePowerY1 + 42,throttleWidth,throttleHeight,5);//5 radius
+      }
+      if (leftThrottlesAnimatingCount >= 11 && leftThrottlesAnimatingCount <= 15) {
+        rect(topX + leftThrottlePowerX1,topY + leftThrottlePowerY1 + 62,throttleWidth,throttleHeight,5);//5 radius
+      }
+      if (leftThrottlesAnimatingCount >= 16 && leftThrottlesAnimatingCount <= 20) {
+        rect(topX + leftThrottlePowerX1,topY + leftThrottlePowerY1 + 82,throttleWidth,throttleHeight,5);//5 radius
+      }
+    }
     // left throttle idle contact made
     strokeWeight(3);
     stroke('red');//color
@@ -1340,17 +1352,29 @@ function drawLeftThrottle() {
   }
   else {
     // left throttle at power up
-    fill('black');
-    rect(topX+leftThrottlePowerX1, topY+leftThrottlePowerY1, throttleWidth, throttleHeight, 5);//5 radius
-    
-    fill('white');
-    strokeWeight(0);
-    textSize(16);
-    //text('Throttle', topX+leftThrottlePowerX1+13, topY+leftThrottlePowerY1+30);
-    
-    fill('lightgray');
-    rect(topX+leftThrottleIdleX1, topY+leftThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
-    
+    if (leftThrottlesAnimatingCount == 21) {
+      fill('black');
+      rect(topX+leftThrottlePowerX1, topY+leftThrottlePowerY1, throttleWidth, throttleHeight, 5);//5 radius
+      //fill('lightgray');
+      //rect(topX+leftThrottleIdleX1, topY+leftThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
+    }
+    else {
+      fill('black');
+      stroke('black');//color
+      leftThrottlesAnimatingCount++;
+      if (leftThrottlesAnimatingCount >= 0 && leftThrottlesAnimatingCount <= 5) {
+          rect(topX+leftThrottlePowerX1, topY+leftThrottlePowerY1+82, throttleWidth, throttleHeight, 5);//5 radius
+      }
+      if (leftThrottlesAnimatingCount >= 6 && leftThrottlesAnimatingCount <= 10) {
+          rect(topX+leftThrottlePowerX1, topY+leftThrottlePowerY1+62, throttleWidth, throttleHeight, 5);//5 radius
+      }
+      if (leftThrottlesAnimatingCount >= 11 && leftThrottlesAnimatingCount <= 15) {
+          rect(topX+leftThrottlePowerX1, topY+leftThrottlePowerY1+42, throttleWidth, throttleHeight, 5);//5 radius
+      }
+      if (leftThrottlesAnimatingCount >= 16 && leftThrottlesAnimatingCount <= 20) {
+          rect(topX+leftThrottlePowerX1, topY+leftThrottlePowerY1+22, throttleWidth, throttleHeight, 5);//5 radius
+      }
+    }
     // left throttle power contact broken
     strokeWeight(3);
     stroke('red');//color
@@ -1362,18 +1386,28 @@ function drawLeftThrottle() {
 function drawRightThrottle() {
   if (rightThrottleIdleFlag == _IDLE) {
     // right throttle at idle
-    fill('lightgray');
-    stroke('lightgray');//color
-    rect(topX+rightThrottlePowerX1, topY+leftThrottlePowerY1, throttleWidth, throttleHeight, 5);//5 radius
-    
-    fill('black');
-    stroke('black');//color
-    rect(topX+rightThrottleIdleX1, topY+leftThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
-    stroke('white');//color
-    fill('white');
-    strokeWeight(0);
-    textSize(16);
-    //text('Throttle', topX+rightThrottleIdleX1+13, topY+rightThrottleIdleY1+30);
+    if (rightThrottlesAnimatingCount == 21) {
+      fill('black');
+      stroke('black');//color
+      rect(topX+rightThrottleIdleX1, topY+rightThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
+    }
+    else {
+      fill('black');
+      stroke('black');//color
+      rightThrottlesAnimatingCount++;
+      if (rightThrottlesAnimatingCount >= 0 && rightThrottlesAnimatingCount <= 5) {
+        rect(topX + rightThrottlePowerX1,topY + rightThrottlePowerY1 + 22,throttleWidth,throttleHeight,5);//5 radius
+      }
+      if (rightThrottlesAnimatingCount >= 6 && rightThrottlesAnimatingCount <= 10) {
+        rect(topX + rightThrottlePowerX1,topY + rightThrottlePowerY1 + 42,throttleWidth,throttleHeight,5);//5 radius
+      }
+      if (rightThrottlesAnimatingCount >= 11 && rightThrottlesAnimatingCount <= 15) {
+        rect(topX + rightThrottlePowerX1,topY + rightThrottlePowerY1 + 62,throttleWidth,throttleHeight,5);//5 radius
+      }
+      if (rightThrottlesAnimatingCount >= 16 && rightThrottlesAnimatingCount <= 20) {
+        rect(topX + rightThrottlePowerX1,topY + rightThrottlePowerY1 + 82,throttleWidth,throttleHeight,5);//5 radius
+      }
+    }
     // right throttle idle contact made
     strokeWeight(3);
     stroke('red');//color
@@ -1381,19 +1415,28 @@ function drawRightThrottle() {
   }
   else {
     // right throttle at power up
-    fill('black');
-    stroke('black');//color
-    rect(topX+rightThrottlePowerX1, topY+leftThrottlePowerY1, throttleWidth, throttleHeight, 5);//5 radius
-    
-    fill('white');
-    strokeWeight(0);
-    textSize(16);
-    //text('Throttle', topX+rightThrottlePowerX1+13, topY+rightThrottlePowerY1+30);
-    
-    fill('lightgray');
-    stroke('lightgray');//color
-    rect(topX+rightThrottleIdleX1, topY+rightThrottleIdleY1, throttleWidth, throttleHeight, 5);//5 radius
-    
+    if (rightThrottlesAnimatingCount == 21) {
+      fill('black');
+      stroke('black');//color
+      rect(topX+rightThrottlePowerX1, topY+rightThrottlePowerY1, throttleWidth, throttleHeight, 5);//5 radius
+    }
+    else {
+      fill('black');
+      stroke('black');//color
+        rightThrottlesAnimatingCount++;
+      if (rightThrottlesAnimatingCount >= 0 && rightThrottlesAnimatingCount <= 5) {
+          rect(topX+rightThrottlePowerX1, topY+rightThrottlePowerY1+82, throttleWidth, throttleHeight, 5);//5 radius
+      }
+      if (rightThrottlesAnimatingCount >= 6 && rightThrottlesAnimatingCount <= 10) {
+          rect(topX+rightThrottlePowerX1, topY+rightThrottlePowerY1+62, throttleWidth, throttleHeight, 5);//5 radius
+      }
+      if (rightThrottlesAnimatingCount >= 11 && rightThrottlesAnimatingCount <= 15) {
+          rect(topX+rightThrottlePowerX1, topY+rightThrottlePowerY1+42, throttleWidth, throttleHeight, 5);//5 radius
+      }
+      if (rightThrottlesAnimatingCount >= 16 && rightThrottlesAnimatingCount <= 20) {
+          rect(topX+rightThrottlePowerX1, topY+rightThrottlePowerY1+22, throttleWidth, throttleHeight, 5);//5 radius
+      }
+    }
     // right throttle power contact broken
     strokeWeight(3);
     stroke('red');//color
@@ -1406,14 +1449,13 @@ function drawLeftThrottleIdleVerticalContactLines() {
   strokeWeight(1);
   stroke('black');//color
   drawingContext.setLineDash([5, 5]);//turn on dashed lines
-  line(topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1+50,topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1+100);
   if (leftThrottleIdleFlag == _IDLE) {
     //idle
-    line(topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1,topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1-81);
+    line(topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1+150,topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1-81);
   }
   else {
     //power
-    line(topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1,topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1-98);
+    line(topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1+150,topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1-98);
   }
   drawingContext.setLineDash([]);//turn off dashed lines
 }
@@ -1423,7 +1465,9 @@ function drawRightThrottleIdleVerticalContactLines() {
   stroke('black');//color
   drawingContext.setLineDash([5, 5]);//turn on dashed lines ***************************************************
   line(topX+rightThrottlePowerX1+40,topY+rightThrottlePowerY1+50,topX+rightThrottlePowerX1+40,topY+rightThrottlePowerY1+100);
-  line(topX+rightThrottleIdleX1+40,topY+rightThrottleIdleY1+52,topX+rightThrottleIdleX1+40,topY+rightThrottleIdleY1+100);
+  //stroke('red');//vertical line just below right throttle
+  line(topX+rightThrottleIdleX1+40,topY+rightThrottleIdleY1+02,topX+rightThrottleIdleX1+40,topY+rightThrottleIdleY1+100);
+  //stroke('cyan');//lower right throttle lines
   line(topX+rightThrottleIdleX1-60,topY+rightThrottleIdleY1+100,topX+rightThrottleIdleX1+40,topY+rightThrottleIdleY1+100);
   if (rightThrottleIdleFlag) {
     //idle
@@ -1440,6 +1484,7 @@ function drawRightThrottleIdleVerticalContactLines() {
 function mouse_touch() { // touches here ***********************
   if (mouseX > topX+leftThrottleToggleButtonX && mouseX < topX+leftThrottleToggleButtonX + throttleWidth) {
     if (mouseY > topY+leftThrottleToggleButtonY && mouseY < topY+leftThrottleToggleButtonY + leftThrottleToggleButtonHeight) {
+      leftThrottlesAnimatingCount = 0;
       if (leftThrottleIdleFlag) {
         //going to power up
         leftThrottleIdleFlag = _POWER;
@@ -1450,24 +1495,10 @@ function mouse_touch() { // touches here ***********************
       }
     }
   }
-  if (mouseX > topX+zoomMinusButtonX*sxx && mouseX < topX+zoomMinusButtonX*sxx + zoomMinusButtonWidth*sxx) {
-    if (mouseY > topY + zoomMinusButtonY*syy && mouseY < topY+zoomMinusButtonY*syy + zoomMinusButtonHeight*syy) {
-      sxx = sxx - sxxChange;
-      syy = syy - syyChange;
-      //console.log('Minus');
-    }
-  }
-  // mouse clicks here ***********************
-  if (mouseX > topX+zoomPlusButtonX*sxx && mouseX < topX+zoomPlusButtonX*sxx + zoomPlusButtonWidth*sxx) {
-    if (mouseY > topY + zoomPlusButtonY*syy && mouseY < topY + zoomPlusButtonY*syy + zoomPlusButtonHeight*syy) {
-      sxx = sxx + sxxChange;
-      syy = syy + syyChange;
-      //console.log('Plus');
-    }
-  }
 // touches here ***********************
   if (mouseX > topX+rightThrottleToggleButtonX && mouseX < topX+rightThrottleToggleButtonX + rightThrottleToggleButtonWidth) {
     if (mouseY > topY+rightThrottleToggleButtonY && mouseY < topY+rightThrottleToggleButtonY + rightThrottleToggleButtonHeight) {
+      rightThrottlesAnimatingCount = 0;
       if (rightThrottleIdleFlag) {
         //going to power up
         rightThrottleIdleFlag = _POWER;
@@ -1476,6 +1507,22 @@ function mouse_touch() { // touches here ***********************
         //going to idle
         rightThrottleIdleFlag = _IDLE;
       }
+    }
+  }
+// touches here ***********************
+  if (mouseX > topX+zoomMinusButtonX*sxx && mouseX < topX+zoomMinusButtonX*sxx + zoomMinusButtonWidth*sxx) {
+    if (mouseY > topY + zoomMinusButtonY*syy && mouseY < topY+zoomMinusButtonY*syy + zoomMinusButtonHeight*syy) {
+      sxx = sxx - sxxChange;
+      syy = syy - syyChange;
+      //console.log('Minus');
+    }
+  }
+// touches here ***********************
+  if (mouseX > topX+zoomPlusButtonX*sxx && mouseX < topX+zoomPlusButtonX*sxx + zoomPlusButtonWidth*sxx) {
+    if (mouseY > topY + zoomPlusButtonY*syy && mouseY < topY + zoomPlusButtonY*syy + zoomPlusButtonHeight*syy) {
+      sxx = sxx + sxxChange;
+      syy = syy + syyChange;
+      //console.log('Plus');
     }
   }
 // touches here ***********************
@@ -1513,6 +1560,7 @@ function mouse_touch() { // touches here ***********************
   // touches here ***********************
   if (mouseX > topX+groundSpoilerArmSwitchToggleX && mouseX < topX+groundSpoilerArmSwitchToggleX + groundSpoilerArmSwitchToggleWidth) {
     if (mouseY > topY+groundSpoilerArmSwitchToggleY && mouseY < topY+groundSpoilerArmSwitchToggleY + groundSpoilerArmSwitchToggleHeight) {
+      spoilersAnimatingCount = 0;
       if (groundSpoilerArmSwitchFlag == _ARMED) {
         groundSpoilerArmSwitchFlag = _NOTARMED; //going to OFF
       }
@@ -1546,6 +1594,8 @@ function mouse_touch() { // touches here ***********************
   return false;
 }
 
+
+
 // mouse clicks here ************************************************************************************
 function mousePressed() { // mouse clicks here ***********************
   mouse_pressed_flag = true;
@@ -1567,8 +1617,23 @@ function mousePressed() { // mouse clicks here ***********************
     }
   }
 // mouse clicks here ***********************
+  if (mouseX > topX+leftThrottleToggleButtonX*sxx && mouseX < topX+leftThrottleToggleButtonX*sxx + throttleWidth*sxx) {
+    if (mouseY > topY+leftThrottleToggleButtonY*syy && mouseY < topY+leftThrottleToggleButtonY*syy + leftThrottleToggleButtonHeight*syy) {
+      leftThrottlesAnimatingCount = 0;
+      if (leftThrottleIdleFlag == _IDLE) {
+        //going to power up
+        leftThrottleIdleFlag = _POWER;
+      }
+      else {
+        //going to idle
+        leftThrottleIdleFlag = _IDLE;
+      }
+    }
+  }
+// mouse clicks here ***********************
   if (mouseX > topX+rightThrottleToggleButtonX*sxx && mouseX < topX+rightThrottleToggleButtonX*sxx + throttleWidth*sxx) {
     if (mouseY > topY+rightThrottleToggleButtonY*syy && mouseY < topY+rightThrottleToggleButtonY*syy + rightThrottleToggleButtonHeight*syy) {
+      rightThrottlesAnimatingCount = 0;
       if (rightThrottleIdleFlag == _IDLE) {
         //going to power up
         rightThrottleIdleFlag = _POWER;
@@ -1577,8 +1642,6 @@ function mousePressed() { // mouse clicks here ***********************
         //going to idle
         rightThrottleIdleFlag = _IDLE;
       }
-      //flashingRedCASmessages = true;
-      //flashRedCounter = 0;
     }
   }
   // mouse clicks here ***********************
@@ -1595,21 +1658,6 @@ function mousePressed() { // mouse clicks here ***********************
       sxx = sxx + sxxChange;
       syy = syy + syyChange;
       //console.log('Plus');
-    }
-  }
-// mouse clicks here ***********************
-  if (mouseX > topX+leftThrottleToggleButtonX*sxx && mouseX < topX+leftThrottleToggleButtonX*sxx + throttleWidth*sxx) {
-    if (mouseY > topY+leftThrottleToggleButtonY*syy && mouseY < topY+leftThrottleToggleButtonY*syy + leftThrottleToggleButtonHeight*syy) {
-      if (leftThrottleIdleFlag == _IDLE) {
-        //going to power up
-        leftThrottleIdleFlag = _POWER;
-      }
-      else {
-        //going to idle
-        leftThrottleIdleFlag = _IDLE;
-      }
-      //flashingRedCASmessages = true;
-      //flashRedCounter = 0;
     }
   }
 // mouse clicks here ***********************
@@ -1657,6 +1705,8 @@ function mousePressed() { // mouse clicks here ***********************
   mouse_pressed_flag = false;
 }
 
+
+
 function mouse_is_pressed() {
   // mouse_pressed_flag = true;
   // if (mouseX > topX+groundSpoilerTestSwitchX && mouseX < topX+groundSpoilerTestSwitchX + groundSpoilerTestSwitchWidth) {
@@ -1667,12 +1717,10 @@ function mouse_is_pressed() {
   //     //if (groundSpoilerTestSwitchFlag == _NOTEST) {
   //       groundSpoilerTestSwitchFlag = _TEST;
   //       //drawGroundSpoilerTestSwitch();
-  //       //drawHydraulicPipingLogic();
   //     //}
   //     //else {
   //       //groundSpoilerTestSwitchFlag = _NOTEST;
   //       //drawGroundSpoilerTestSwitch();
-  //       //drawHydraulicPipingLogic();
   //     //}
   //   }
   // }
@@ -1714,7 +1762,6 @@ function mouse_is_released() {
   // stroke('blue');//color
   // //text(groundSpoilerTestSwitchFlag, topX+0, topY+400);
   // //text('xxxxxxxxxxxxxxxxxxx', topX+0, topY+500);
-  // //drawHydraulicPipingLogic();
   mouse_pressed_flag = false;
   return false;
 }
