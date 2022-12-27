@@ -202,6 +202,7 @@ let spoilersArmClick = "N/A";
 let spoilersLastCommand = "";
 let spoilersAnimatingCount = 0;
 
+
 function preload() {
 
 }
