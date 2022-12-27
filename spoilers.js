@@ -1,7 +1,5 @@
 let version = 'v4.4';
 
-//https://stackoverflow.com/questions/63716852/p5js-why-is-my-bg-framerate-not-refreshing-properly
-
 //let spoilersAnimating = false;
 //let spoilersArmClick = "NotArmed";
 //let spoilersLastCommand = "down";
