@@ -2,10 +2,12 @@ let version = 'v4.5';
 
 //let spoilersAnimating = false;
 //let spoilersArmClick = "NotArmed";
-//let spoilersLastCommand = "down";
+let spoilersLastCommand = "";
 let spoilersAnimatingCount = 91;
 let leftThrottlesAnimatingCount = 21;
 let rightThrottlesAnimatingCount = 21;
+let spoilersUp = true; //easiest way to check
+let spoilerAnimationInProgress = false;
 
 let topX = 10;
 let topY = 0;
@@ -207,6 +209,7 @@ function preload() {
 }
 
 function setup() {
+  //frameRate(16);
   //scale(2,2)
   //ctx = createCanvas(1190, 760);
   //frameRate(fps);
@@ -722,51 +725,89 @@ function wait(ms){
   }
 }
 function drawSpoilerPanels() {
-  //console.log('drawSpoilerPanels');
-  if (leftThrottleIdleFlag == _IDLE && rightThrottleIdleFlag == _IDLE) {
-    if (groundSpoilerArmSwitchFlag == _ARMED) {
-      // Spoilers Up
-      if (spoilersAnimatingCount == 91) {
-        spoilerPanelsUp();
-      }
-      else {
-        spoilersAnimatingCount++;
-        if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
-          spoilerPanels25();
-        }
-        if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
-          spoilerPanelsHalf();
-        }
-        if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
-          spoilerPanels75();
-        }
-        if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
-          spoilerPanelsUp();
-        }
-      }
-    }
-    else {
-      // Spoilers Down
-      if (spoilersAnimatingCount == 91) {
-        spoilerPanelsDown();
-      }
-      else {
-        spoilersAnimatingCount++;
-        if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
-          spoilerPanels75();
-        }
-        if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
-          spoilerPanelsHalf();
-        }
-        if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
-          spoilerPanels25();
-        }
-        if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
-          spoilerPanelsDown();
-        }
-      }
-    }
+  //if (spoilerAnimationInProgress == false) {
+    spoilersUp = true;
+    if (leftThrottleIdleFlag == _POWER) spoilersUp = false;
+    if (rightThrottleIdleFlag == _POWER) spoilersUp = false;
+    if (topValveOpen == false) spoilersUp = false;
+    if (botValveOpen == false) spoilersUp = false;
+    console.log("0000 spoilersUp " + spoilersUp);
+  //}
+  // spoilers UP ********************************************************************
+  // spoilers UP ********************************************************************
+  // spoilers UP ********************************************************************
+  if (spoilersUp == true && spoilerAnimationInProgress == false && spoilersAnimatingCount == 0) {
+    console.log("2222 spoilers up");
+    spoilerAnimationInProgress = true;
   }
+  if (spoilersUp == true && spoilerAnimationInProgress == true) {
+    spoilersAnimatingCount++;
+    if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
+      spoilerPanels25();
+      console.log("25 up");
+    }
+    if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
+      spoilerPanelsHalf();
+      console.log("50 up");
+    }
+    if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
+      spoilerPanels75();
+      console.log("75 up");
+    }
+    if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
+      spoilerPanelsUp();
+      spoilersAnimatingCount = 91;
+      console.log("100 up");
+      console.log("3333 spoilers up");
+      spoilerAnimationInProgress = false;
+      spoilersUp = true;
+    }
+    return;
+  }
+  if (spoilersUp == true && spoilerAnimationInProgress == false && spoilersAnimatingCount == 91) {
+    spoilerPanelsUp();
+    spoilersUp = true;
+    console.log("4444 spoilers up");
+  }
+  // spoilers are DOWN **************************************************************
+  // spoilers are DOWN **************************************************************
+  // spoilers are DOWN **************************************************************
+  if (spoilersUp == false && spoilerAnimationInProgress == false&& spoilersAnimatingCount == 0) {
+    spoilerPanelsDown();
+    spoilersUp = false;
+    spoilerAnimationInProgress = true;
+    //console.log("5555 spoilers down");
+  }
+  if (spoilersUp == false && spoilerAnimationInProgress == true) {
+    console.log("6666 spoilers down");
+    spoilersAnimatingCount++;
+    spoilerAnimationInProgress = true;
+    if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
+      spoilerPanels75();
+    }
+    if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
+      spoilerPanelsHalf();
+    }
+    if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
+      spoilerPanels25();
+    }
+    if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
+      spoilerPanelsDown();
+      spoilersAnimatingCount = 91;
+      console.log("7777 spoilers down");
+      spoilerAnimationInProgress = false;
+    }
+    return;
+  }
+  if (spoilersUp == false && spoilerAnimationInProgress == false && spoilersAnimatingCount == 91) {
+    spoilerPanelsDown();
+    //spoilersUp = true;
+    console.log("8888 spoilers down");
+  }
+  console.log(".... spoilersUp " + spoilersUp);
+  console.log(".... spoilersAnimatingCount " + spoilersAnimatingCount);
+  console.log("----------------------------------------------");
+  
   fill('black');
   stroke('black');//color
   strokeWeight(0);
@@ -1620,6 +1661,7 @@ function mousePressed() { // mouse clicks here ***********************
   if (mouseX > topX+leftThrottleToggleButtonX*sxx && mouseX < topX+leftThrottleToggleButtonX*sxx + throttleWidth*sxx) {
     if (mouseY > topY+leftThrottleToggleButtonY*syy && mouseY < topY+leftThrottleToggleButtonY*syy + leftThrottleToggleButtonHeight*syy) {
       leftThrottlesAnimatingCount = 0;
+      spoilersAnimatingCount = 0;
       if (leftThrottleIdleFlag == _IDLE) {
         //going to power up
         leftThrottleIdleFlag = _POWER;
@@ -1634,6 +1676,7 @@ function mousePressed() { // mouse clicks here ***********************
   if (mouseX > topX+rightThrottleToggleButtonX*sxx && mouseX < topX+rightThrottleToggleButtonX*sxx + throttleWidth*sxx) {
     if (mouseY > topY+rightThrottleToggleButtonY*syy && mouseY < topY+rightThrottleToggleButtonY*syy + rightThrottleToggleButtonHeight*syy) {
       rightThrottlesAnimatingCount = 0;
+      spoilersAnimatingCount = 0;
       if (rightThrottleIdleFlag == _IDLE) {
         //going to power up
         rightThrottleIdleFlag = _POWER;
