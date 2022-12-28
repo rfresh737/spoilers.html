@@ -2,6 +2,7 @@ let version = 'v4.5';
 
 //let spoilersAnimating = false;
 //let spoilersArmClick = "NotArmed";
+
 let spoilersLastCommand = "";
 let spoilersAnimatingCount = 91;
 let leftThrottlesAnimatingCount = 21;
