@@ -1,4 +1,4 @@
-let version = 'v4.6';
+let version = 'v4.7';
 
 //let spoilersAnimating = false;
 //let spoilersArmClick = "NotArmed";
