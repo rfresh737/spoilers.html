@@ -3,6 +3,7 @@ let version = 'v4.5';
 //let spoilersAnimating = false;
 //let spoilersArmClick = "NotArmed";
 
+
 let spoilersLastCommand = "down";
 let spoilersAnimatingCount = 91;
 let leftThrottlesAnimatingCount = 21;
