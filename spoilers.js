@@ -3,7 +3,7 @@ let version = 'v4.5';
 //let spoilersAnimating = false;
 //let spoilersArmClick = "NotArmed";
 
-let spoilersLastCommand = "";
+let spoilersLastCommand = "down";
 let spoilersAnimatingCount = 91;
 let leftThrottlesAnimatingCount = 21;
 let rightThrottlesAnimatingCount = 21;
@@ -210,7 +210,7 @@ function preload() {
 }
 
 function setup() {
-  //frameRate(16);
+  //frameRate(32);
   //scale(2,2)
   //ctx = createCanvas(1190, 760);
   //frameRate(fps);
@@ -732,55 +732,59 @@ function drawSpoilerPanels() {
     if (rightThrottleIdleFlag == _POWER) spoilersUp = false;
     if (topValveOpen == false) spoilersUp = false;
     if (botValveOpen == false) spoilersUp = false;
-    console.log("0000 spoilersUp " + spoilersUp);
+    //console.log("0000 spoilersUp " + spoilersUp);
   //}
   // spoilers UP ********************************************************************
   // spoilers UP ********************************************************************
   // spoilers UP ********************************************************************
   if (spoilersUp == true && spoilerAnimationInProgress == false && spoilersAnimatingCount == 0) {
-    console.log("2222 spoilers up");
+    //console.log("2222 spoilers up");
     spoilerAnimationInProgress = true;
   }
-  if (spoilersUp == true && spoilerAnimationInProgress == true) {
+  if (spoilersUp == true && spoilerAnimationInProgress == true) {//} && spoilersLastCommand == "down") {
+    //console.log("XXXX spoilers up");
     spoilersAnimatingCount++;
     if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
       spoilerPanels25();
-      console.log("25 up");
+      //console.log("25 up");
     }
     if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
       spoilerPanelsHalf();
-      console.log("50 up");
+      //console.log("50 up");
     }
     if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
       spoilerPanels75();
-      console.log("75 up");
+      //console.log("75 up");
     }
     if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
       spoilerPanelsUp();
+      spoilersLastCommand = "up";
       spoilersAnimatingCount = 91;
-      console.log("100 up");
-      console.log("3333 spoilers up");
+      //console.log("100 up");
+      //console.log("3333 spoilers up");
       spoilerAnimationInProgress = false;
       spoilersUp = true;
     }
     return;
   }
-  if (spoilersUp == true && spoilerAnimationInProgress == false && spoilersAnimatingCount == 91) {
+  if (spoilersUp == true && spoilerAnimationInProgress == false && spoilersAnimatingCount == 91) {//} && spoilersLastCommand == "down") {
     spoilerPanelsUp();
+    spoilersLastCommand = "up";
     spoilersUp = true;
-    console.log("4444 spoilers up");
+    //console.log("4444 spoilers up");
   }
   // spoilers are DOWN **************************************************************
   // spoilers are DOWN **************************************************************
   // spoilers are DOWN **************************************************************
-  if (spoilersUp == false && spoilerAnimationInProgress == false&& spoilersAnimatingCount == 0) {
-    spoilerPanelsDown();
+  if (spoilersUp == false && spoilerAnimationInProgress == false && spoilersAnimatingCount == 0 && spoilersLastCommand != "down") {
+    //spoilerPanelsDown();
+    spoilersLastCommand = "down";
     spoilersUp = false;
     spoilerAnimationInProgress = true;
     //console.log("5555 spoilers down");
   }
-  if (spoilersUp == false && spoilerAnimationInProgress == true) {
-    console.log("6666 spoilers down");
+  if (spoilersUp == false && spoilerAnimationInProgress == true) { //} && spoilersLastCommand == "up") {
+    //console.log("6666 spoilers down");
     spoilersAnimatingCount++;
     spoilerAnimationInProgress = true;
     if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
@@ -794,20 +798,22 @@ function drawSpoilerPanels() {
     }
     if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
       spoilerPanelsDown();
+      spoilersLastCommand = "down";
       spoilersAnimatingCount = 91;
-      console.log("7777 spoilers down");
+      //console.log("7777 spoilers down");
       spoilerAnimationInProgress = false;
     }
     return;
   }
-  if (spoilersUp == false && spoilerAnimationInProgress == false && spoilersAnimatingCount == 91) {
+  if (spoilersUp == false && spoilerAnimationInProgress == false && spoilersLastCommand == "down") {
     spoilerPanelsDown();
-    //spoilersUp = true;
-    console.log("8888 spoilers down");
+    //console.log("8888 spoilers down");
   }
-  console.log(".... spoilersUp " + spoilersUp);
-  console.log(".... spoilersAnimatingCount " + spoilersAnimatingCount);
-  console.log("----------------------------------------------");
+  //console.log("9999 spoilers down");
+  //console.log(".... spoilersUp " + spoilersUp);
+  //console.log(".... spoilersAnimatingCount " + spoilersAnimatingCount);
+  //console.log(".... spoilersLastCommand " + spoilersLastCommand);
+  //console.log("----------------------------------------------");
   
   fill('black');
   stroke('black');//color
