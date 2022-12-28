@@ -1,8 +1,7 @@
-let version = 'v4.5';
+let version = 'v4.6';
 
 //let spoilersAnimating = false;
 //let spoilersArmClick = "NotArmed";
-
 
 let spoilersLastCommand = "down";
 let spoilersAnimatingCount = 91;
