@@ -143,11 +143,12 @@ let RED_GRN_SPOILER_CAS_Y= 190;
 let BLUE_GRN_SPOILER_UNARM_CAS_X = RED_NO_GND_SPOILERS_GlareshieldLightX;
 let BLUE_GRN_SPOILER_UNARM_CAS_Y = 215;
 let contactsSpacing = 100;
+let nutcrackerContactsSpacing = 60;
 
-let leftNutcrackerContactCircle1 = [topX+topContactsBaseLineX-220,topY+topContactsBaseLineY,12];
-let leftNutcrackerContactCircle2 = [topX+topContactsBaseLineX-220+contactsSpacing,topY+topContactsBaseLineY,12];
-let rightNutcrackerContactCircle1 = [topX+botContactsBaseLineX-220,topY+botContactsBaseLineY,12];
-let rightNutcrackerContactCircle2 = [topX+botContactsBaseLineX-220+contactsSpacing,topY+botContactsBaseLineY,12];
+let leftNutcrackerContactCircle1 = [topX+topContactsBaseLineX-180,topY+topContactsBaseLineY,12];
+let leftNutcrackerContactCircle2 = [topX+topContactsBaseLineX-180+nutcrackerContactsSpacing,topY+topContactsBaseLineY,12];
+let rightNutcrackerContactCircle1 = [topX+botContactsBaseLineX-180,topY+botContactsBaseLineY,12];
+let rightNutcrackerContactCircle2 = [topX+botContactsBaseLineX-180+nutcrackerContactsSpacing,topY+botContactsBaseLineY,12];
 
 let leftThrottleContactCircle1 = [topX+topContactsBaseLineX-10,topY+topContactsBaseLineY,12];
 let leftThrottleContactCircle2 = [topX+topContactsBaseLineX+contactsSpacing,topY+topContactsBaseLineY,12];
@@ -205,6 +206,11 @@ let syy = 1.0;
 let sxxChange = 0.05;
 let syyChange = 0.05;
 let fps = 10;
+
+let leftMainDCBusX = -17;
+let leftMainDCBusY = 70;
+let leftMainDCBusTextX = 12;
+let leftMainDCBusTextY = 330;
 
 function preload() {
 
@@ -420,7 +426,7 @@ function draw() {
   //primary hydraulic valve electrical lines ***************************************************************************
   strokeWeight(2);
   stroke('red');//color
-  line(0,topY+topContactsBaseLineY,leftThrottleContactCircle1[0],leftThrottleContactCircle1[1]);//line before left throttle contacts
+  line(90,topY+topContactsBaseLineY,leftThrottleContactCircle1[0],leftThrottleContactCircle1[1]);//line before left throttle contacts
   if (leftThrottleIdleFlag == _IDLE) {
     stroke('red');//color
   }
@@ -428,6 +434,7 @@ function draw() {
     stroke('black');//color
   }
   strokeWeight(2);
+  //stroke('blue');//color
   line(leftThrottleContactCircle2[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle1[0]-6,topY+primaryHydraulicValveY);//line after left throttle contact
   if (groundSpoilerArmSwitchFlag == _ARMED) {
     if (topValveOpen) {
@@ -437,6 +444,7 @@ function draw() {
       stroke('black');//color
     }
     strokeWeight(3);
+    //stroke('green');//color
     line(topGroundSpoilerArmContactCircle1[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle2[0]-6,topY+primaryHydraulicValveY);//primary hydraulic valve contact
   }
   else {
@@ -447,6 +455,7 @@ function draw() {
       stroke('black');//color
     }
     strokeWeight(3);
+    //stroke('cyan');//color
     line(topGroundSpoilerArmContactCircle1[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle2[0]-6,topY+primaryHydraulicValveY-contactsOpenHeight);//primary hydraulic valve contact
   }
   if (topValveOpen) {
@@ -456,12 +465,14 @@ function draw() {
     stroke('black');//color
   }
   strokeWeight(2);
+  //stroke('magenta');//color
   line(topGroundSpoilerArmContactCircle4[0]+6,topY+primaryHydraulicValveY,topX+primaryHydraulicValveX,topY+primaryHydraulicValveY);//line after ground spoiler contact to primary hydraulic valve
   
   //secondary hydraulic valve electrical lines *************************************************************************
   strokeWeight(2);
   stroke('red');//color
-  line(0,topY+botContactsBaseLineY,rightThrottleContactCircle1[0],rightThrottleContactCircle1[1]);//line before right throttle contacts
+  //stroke('blue');//color
+  line(90,topY+botContactsBaseLineY,rightThrottleContactCircle1[0],rightThrottleContactCircle1[1]);//line before right throttle contacts
   if (rightThrottleIdleFlag == _IDLE) {
     stroke('red');//color
   }
@@ -469,6 +480,7 @@ function draw() {
     stroke('black');//color
   }
   strokeWeight(2);
+  //stroke('blue');//color
   line(rightThrottleContactCircle2[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle1[0]-6,topY+secondaryHydraulicValveY);//line after right throttle contact
   if (groundSpoilerArmSwitchFlag == _ARMED) {
     if (rightThrottleIdleFlag == _IDLE) {
@@ -478,6 +490,7 @@ function draw() {
       stroke('black');//color
     }
     strokeWeight(3);
+    //stroke('green');//color
     line(botGroundSpoilerArmContactCircle1[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle2[0]-6,topY+secondaryHydraulicValveY);//secondary hydraulic valve contact
   }
   else {
@@ -488,6 +501,7 @@ function draw() {
       stroke('black');//color
     }
     strokeWeight(3);
+    //stroke('magenta');//color
     line(botGroundSpoilerArmContactCircle1[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle2[0]-6,topY+secondaryHydraulicValveY-contactsOpenHeight);//secondary hydraulic valve contact
   }
   if (botValveOpen) {
@@ -497,18 +511,33 @@ function draw() {
     stroke('black');//color
   }
   strokeWeight(2);
+  //stroke('purple');//color
   line(botGroundSpoilerArmContactCircle4[0]+6,topY+secondaryHydraulicValveY,topX+secondaryHydraulicValveX,topY+secondaryHydraulicValveY);//line after ground spoiler contact to secondary hydraulic valve
   
+  // draw Ground Spoiler circuit breaker
   strokeWeight(1);
-  stroke('gray'); // light gray
-//fill('#d6d6d6'); // very light gray not needed for lines
-//line(topX+primaryHydraulicValveX+60,topY+primaryHydraulicValveY+73,topX+primaryHydraulicValveX+280,topY+primaryHydraulicValveY+73);//line dividing glareshield/CAS messages
-  
+  stroke('red');//color
+  fill(_BG_COLOR);
+  //       x       y   w  h          start        stop
+  arc(topX+50,topY+276,20,20,radians(180),radians(360),OPEN);
+  line(topX+80,topY+topContactsBaseLineY,topX+80,botContactsBaseLineY);// verticval CB line
+  line(topX+60,topY+276,topX+80,276);
+  line(topX+20,topY+276,topX+40,276);
+  line(topX+45,topY+256,topX+55,256);// top horizontal CB line
+  line(topX+50,topY+256,topX+50,264);// top vertical CB line
+  fill('red');
+  circle(topX+80,topY+275,12);
+  strokeWeight(0);
+  stroke('black');//color
   fill('black');
+  text('Gnd', topX+34,topY+246);
+  text('Spoiler', topX+26,topY+298);
+  
+  //  fill('black');
   strokeWeight(0);
   textSize(16);
-  text('Left Nutcracker', topX+leftNutcrackerTextX1, topY+leftNutcrackerTextY1);
-  text('Right Nutcracker', topX+rightNutcrackerTextX1, topY+rightNutcrackerTextY1);
+  text('Left Nutcracker', topX+leftNutcrackerTextX1+20, topY+leftNutcrackerTextY1);
+  text('Right Nutcracker', topX+rightNutcrackerTextX1+24, topY+rightNutcrackerTextY1);
   text('Grn Mode', topX+leftNutcrackerGrnModeTextX2, topY+leftNutcrackerGrnModeTextY2);
   text('Grn Mode', topX+rightNutcrackerGrnModeTextX2, topY+rightNutcrackerGrnModeTextY2);
   //fill('blue');
@@ -528,6 +557,8 @@ function draw() {
 //======================================================================================================================
 //======================================================================================================================
 //======================================================================================================================
+  drawLeftMainDCBus();
+  
   drawLeftThrottle();
   
   drawRightThrottle();
@@ -576,6 +607,19 @@ function draw() {
 
 }
 
+function drawLeftMainDCBus() {
+  fill(_BG_COLOR);
+  stroke('red');
+  strokeWeight(2);
+  rect(topX+leftMainDCBusX+8, topY+leftMainDCBusY+0, 30, 410, 0);//0 radiu
+  fill('black');
+  strokeWeight(0);
+  push();
+  translate(topX+leftMainDCBusTextX,topY+leftMainDCBusTextY);
+  rotate(radians(270));
+  text('Left Main DC Bus', 0, 0)
+  pop();
+}
 function drawZoomMinusToggle() {
   fill('lightgray');
   stroke('blue');//color
@@ -749,18 +793,22 @@ function drawSpoilerPanels() {
     spoilersAnimatingCount++;
     if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
       spoilerPanels25();
+      drawGroundSpoilerPanelsText();
       //console.log("25 up");
     }
     if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
       spoilerPanelsHalf();
+      drawGroundSpoilerPanelsText();
       //console.log("50 up");
     }
     if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
       spoilerPanels75();
+      drawGroundSpoilerPanelsText();
       //console.log("75 up");
     }
     if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
       spoilerPanelsUp();
+      drawGroundSpoilerPanelsText();
       spoilersLastCommand = "up";
       spoilersAnimatingCount = 91;
       //console.log("100 up");
@@ -792,15 +840,19 @@ function drawSpoilerPanels() {
     spoilerAnimationInProgress = true;
     if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
       spoilerPanels75();
+      drawGroundSpoilerPanelsText();
     }
     if (spoilersAnimatingCount >= 16 && spoilersAnimatingCount <= 40) {
       spoilerPanelsHalf();
+      drawGroundSpoilerPanelsText();
     }
     if (spoilersAnimatingCount >= 41 && spoilersAnimatingCount <= 65) {
       spoilerPanels25();
+      drawGroundSpoilerPanelsText();
     }
     if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
       spoilerPanelsDown();
+      drawGroundSpoilerPanelsText();
       spoilersLastCommand = "down";
       spoilersAnimatingCount = 91;
       //console.log("7777 spoilers down");
@@ -817,7 +869,11 @@ function drawSpoilerPanels() {
   //console.log(".... spoilersAnimatingCount " + spoilersAnimatingCount);
   //console.log(".... spoilersLastCommand " + spoilersLastCommand);
   //console.log("----------------------------------------------");
-  
+
+  drawGroundSpoilerPanelsText();
+}
+
+function drawGroundSpoilerPanelsText() {
   fill('black');
   stroke('black');//color
   strokeWeight(0);
