@@ -1,4 +1,4 @@
-let version = 'v4.7';
+let version = 'v4.8';
 
 
 //let spoilersAnimating = false;
