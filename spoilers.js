@@ -1,41 +1,54 @@
 let version = 'v4.8';
 
-//let spoilersAnimating = false;
+//let spoilersAnimating = _FALSE0;
 //let spoilersArmClick = "NotArmed";
+
+
+let _TRUE1 = 1;
+let _FALSE0 = 0;
+let _POWER0 = 0;
+let _IDLE1 = 1;
+let _ARMED1 = 1;
+let _NOT_ARMED0 = 0;
+let _TEST1 = 1;
+let _NO_TEST1 = 0;
+let _OPENED1 = 1;
+let _CLOSED0 = 0;
+let _YES1 = 1;
+let _NO0 = 0;
+let _UP1 = 1;
+let _DOWN0 = 0;
+let _DOWN_YES_ANIMATION100 = 100;
+let _DOWN_NO_ANIMATION200 = 200;
+let _UP_YES_ANIMATION900 = 900;
+let _UP_NO_ANIMATION800 = 800;
+let flashRedCounter = 1000;
 
 let leftThrottlesAnimatingCount = 21;
 let rightThrottlesAnimatingCount = 21;
-let spoilersUp = true;
-let spoilerAnimationInProgress = false;
-let spoilersLastCommand = "up";
+
+// Spoilers Moving Direction **********************
+let spoilersMovingDirection = _DOWN0;
+let spoilerAnimationInProgress = _FALSE0;
 let spoilersAnimatingCount = 0;
+let spoilersState = _DOWN_NO_ANIMATION200;
+// Spoilers Moving Direction **********************
+
+//let spoilersCurrentPosition = "up";
 let alertCount = 0;
 
 let topX = 10;
 let topY = 0;
 
-let _POWER = false;
-let _IDLE = true;
-let _ARMED = true;
-let _NOTARMED = false;
-let _TEST = true;
-let _NOTEST = false;
-let _OPENED = true;
-let _CLOSED = false;
-let _YES = true;
-let _NO = false;
-
-let flashRedCounter = 1000;
-
-let flashingRedCASmessages = false;
+let flashingRedCASmessages = _FALSE0;
 let previousSpoilerState = 'up';
 let currentSpoilerState = 'down';
 
-let mouse_pressed_flag = false;
-let topValveOpen = _CLOSED;
-let botValveOpen = _CLOSED;
-let mouseReleaseFlag = false;
-let playSoundFlag = false;
+let mouse_pressed_flag = _FALSE0;
+let topValveOpen = _CLOSED0;
+let botValveOpen = _CLOSED0;
+let mouseReleaseFlag = _FALSE0;
+let playSoundFlag = _FALSE0;
 
 let topContactsBaseLineX = 300;
 let topContactsBaseLineY = 100;
@@ -74,10 +87,10 @@ let rightThrottlePowerY1 = leftThrottlePowerY1;
 let throttleWidth = 80;
 let throttleHeight = 50;
 let contactsOpenHeight = 40;
-let leftThrottleIdleFlag = _IDLE;
-let rightThrottleIdleFlag = _IDLE;
-let groundSpoilerArmSwitchFlag = _NOTARMED;
-let groundSpoilerTestSwitchFlag = _NOTEST;
+let leftThrottleIdleFlag = _IDLE1;
+let rightThrottleIdleFlag = _IDLE1;
+let groundSpoilerArmSwitchFlag = _NOT_ARMED0;
+let groundSpoilerTestSwitchFlag = _NO_TEST1;
 let primaryHydraulicValveX = topContactsBaseLineX + 450;
 let secondaryHydraulicValveX = primaryHydraulicValveX;
 let primaryHydraulicValveY = 100;
@@ -101,7 +114,7 @@ let groundSpoilerCBToggleX = 34;
 let groundSpoilerCBToggleY = 246;
 let groundSpoilerCBToggleWidth = 70;
 let groundSpoilerCBToggleHeight = 80;
-let groundSpoilerCBFlag = _CLOSED;
+let groundSpoilerCBFlag = _CLOSED0;
 
 let groundSpoilerTestSwitchX = primaryHydraulicValveX+196;
 let groundSpoilerTestSwitchY = 260;
@@ -189,7 +202,7 @@ let pipeSegment630 = 630;
 //let debug1 = 0;
 //let debug2 = 0;
 //let debug3 = 0;
-let debugging = true;
+let debugging = _TRUE1;
 //let debugCounter = 0;
 //let sound;
 //let first_event = 0;
@@ -290,9 +303,9 @@ function draw() {
   
   strokeWeight(0);
   stroke('red');//color
-  if (mouseReleaseFlag == true) {
-    groundSpoilerTestSwitchFlag = _NOTEST;
-    mouseReleaseFlag = false;
+  if (mouseReleaseFlag == _TRUE1) {
+    groundSpoilerTestSwitchFlag = _NO_TEST1;
+    mouseReleaseFlag = _FALSE0;
   }
   // Text upper left corner ---------------------------------------------
   textSize(16);
@@ -300,7 +313,8 @@ function draw() {
   text('Programming by ralphfreshour@gmail.com.', 10, 645);
   text('For Training Purposes Only.', 10, 670);
   text('(Formatted for iPad screens only)', 10, 695);
-  //text('(This web page is undergoing modifications at this time!)', 10, 720);
+  textSize(20);
+  //text('**** This web page is undergoing modifications at this time ****', 10, 720);
   
   //fill('red');
   //circle(groundSpoilerArmSwitchToggleX,groundSpoilerArmSwitchToggleY,10);
@@ -315,64 +329,64 @@ function draw() {
 
 //electrical contact circles ****************************************************************************************
 // SET TOP CONTACT STATES  ------------------------------------------------
-  if (leftThrottleIdleFlag == _POWER) {
-    topValveOpen = _CLOSED;
+  if (leftThrottleIdleFlag == _POWER0) {
+    topValveOpen = _CLOSED0;
   }
   else {
-    if (leftThrottleIdleFlag == _IDLE) {
-      if (groundSpoilerArmSwitchFlag == _ARMED) {
-        if (groundSpoilerCBFlag == _CLOSED) {
-          topValveOpen = _OPENED;
+    if (leftThrottleIdleFlag == _IDLE1) {
+      if (groundSpoilerArmSwitchFlag == _ARMED1) {
+        if (groundSpoilerCBFlag == _CLOSED0) {
+          topValveOpen = _OPENED1;
         }
       }
       else {
-        topValveOpen = _CLOSED;
+        topValveOpen = _CLOSED0;
       }
     }
   }
 // SET BOTTOM CONTACT STATES  ---------------------------------------------
-  if (rightThrottleIdleFlag == _POWER) {
-    botValveOpen = _CLOSED;
+  if (rightThrottleIdleFlag == _POWER0) {
+    botValveOpen = _CLOSED0;
     //text('botValveOpen closed',10,80);
   }
   else {
-    if (rightThrottleIdleFlag == _IDLE) {
-      if (groundSpoilerArmSwitchFlag == _ARMED) {
-        botValveOpen = _OPENED;
+    if (rightThrottleIdleFlag == _IDLE1) {
+      if (groundSpoilerArmSwitchFlag == _ARMED1) {
+        botValveOpen = _OPENED1;
         //text('botValveOpen open',10,80);
       }
       else {
-        botValveOpen = _CLOSED;
+        botValveOpen = _CLOSED0;
         //text('botValveOpen closed',10,80);
       }
     }
   }
 
-  if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  if (groundSpoilerCBFlag == _OPENED) fill('black');
+  if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  if (groundSpoilerCBFlag == _OPENED1) fill('black');
   circle(leftNutcrackerContactCircle1[0],leftNutcrackerContactCircle1[1],leftNutcrackerContactCircle1[2]);
   circle(leftNutcrackerContactCircle2[0],leftNutcrackerContactCircle2[1],leftNutcrackerContactCircle2[2]);
   circle(rightNutcrackerContactCircle1[0],rightNutcrackerContactCircle1[1],rightNutcrackerContactCircle1[2]);
   circle(rightNutcrackerContactCircle2[0],rightNutcrackerContactCircle2[1],rightNutcrackerContactCircle2[2]);
   
-  if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  if (groundSpoilerCBFlag == _OPENED) fill('black');
+  if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  if (groundSpoilerCBFlag == _OPENED1) fill('black');
   circle(leftThrottleContactCircle1[0],leftThrottleContactCircle1[1],leftThrottleContactCircle1[2]);//left throttle circle contact
-  if (leftThrottleIdleFlag == _IDLE) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+  if (leftThrottleIdleFlag == _IDLE1) {
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
   }
   circle(leftThrottleContactCircle2[0],leftThrottleContactCircle2[1],leftThrottleContactCircle2[2]);//right throttle circle contact
   
-  if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  if (groundSpoilerCBFlag == _OPENED) fill('black');
+  if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  if (groundSpoilerCBFlag == _OPENED1) fill('black');
   circle(rightThrottleContactCircle1[0],rightThrottleContactCircle1[1],rightThrottleContactCircle1[2]);// right throttle left circle contact
-  if (rightThrottleIdleFlag == _IDLE) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+  if (rightThrottleIdleFlag == _IDLE1) {
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
@@ -380,32 +394,32 @@ function draw() {
   circle(rightThrottleContactCircle2[0],rightThrottleContactCircle2[1],rightThrottleContactCircle2[2]);// right throttle right circle contact
   
   if (topValveOpen) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
   }
   circle(topGroundSpoilerArmContactCircle1[0],topGroundSpoilerArmContactCircle1[1],topGroundSpoilerArmContactCircle1[2]);
   if (topValveOpen) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
   }
   circle(topGroundSpoilerArmContactCircle2[0],topGroundSpoilerArmContactCircle2[1],topGroundSpoilerArmContactCircle2[2]);
-  if (leftThrottleIdleFlag == _IDLE) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+  if (leftThrottleIdleFlag == _IDLE1) {
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
   }
   circle(topGroundSpoilerArmContactCircle3[0],topGroundSpoilerArmContactCircle3[1],topGroundSpoilerArmContactCircle3[2]);
   if (topValveOpen) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
@@ -413,32 +427,32 @@ function draw() {
   circle(topGroundSpoilerArmContactCircle4[0]+0,topGroundSpoilerArmContactCircle4[1],topGroundSpoilerArmContactCircle4[2]);
 // ---------------------------------------------------------------------------------------------------------------------
   if (botValveOpen) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
   }
   circle(botGroundSpoilerArmContactCircle1[0],botGroundSpoilerArmContactCircle1[1],botGroundSpoilerArmContactCircle1[2]);
-  if (rightThrottleIdleFlag == _IDLE) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+  if (rightThrottleIdleFlag == _IDLE1) {
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
   }
   circle(botGroundSpoilerArmContactCircle2[0],botGroundSpoilerArmContactCircle2[1],botGroundSpoilerArmContactCircle2[2]);
-  if (rightThrottleIdleFlag == _IDLE) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+  if (rightThrottleIdleFlag == _IDLE1) {
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
   }
   circle(botGroundSpoilerArmContactCircle3[0],botGroundSpoilerArmContactCircle3[1],botGroundSpoilerArmContactCircle3[2]);
   if (botValveOpen) {
-    if (groundSpoilerCBFlag == _CLOSED) fill('red');
-    if (groundSpoilerCBFlag == _OPENED) fill('black');
+    if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+    if (groundSpoilerCBFlag == _OPENED1) fill('black');
   }
   else {
     fill('black');//color
@@ -447,22 +461,22 @@ function draw() {
   
   //primary hydraulic valve electrical lines ***************************************************************************
   strokeWeight(2);
-  if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-  if (groundSpoilerCBFlag == _OPENED) stroke('black');
+  if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+  if (groundSpoilerCBFlag == _OPENED1) stroke('black');
   line(90,topY+topContactsBaseLineY,leftThrottleContactCircle1[0],leftThrottleContactCircle1[1]);//line before left throttle contacts
-  if (leftThrottleIdleFlag == _IDLE) {
-    if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-    if (groundSpoilerCBFlag == _OPENED) stroke('black');
+  if (leftThrottleIdleFlag == _IDLE1) {
+    if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+    if (groundSpoilerCBFlag == _OPENED1) stroke('black');
   }
   else {
     stroke('black');//color
   }
   strokeWeight(2);
   line(leftThrottleContactCircle2[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle1[0]-6,topY+primaryHydraulicValveY);//line after left throttle contact
-  if (groundSpoilerArmSwitchFlag == _ARMED) {
+  if (groundSpoilerArmSwitchFlag == _ARMED1) {
     if (topValveOpen) {
-      if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-      if (groundSpoilerCBFlag == _OPENED) stroke('black');
+      if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+      if (groundSpoilerCBFlag == _OPENED1) stroke('black');
     }
     else {
       stroke('black');//color
@@ -471,9 +485,9 @@ function draw() {
     line(topGroundSpoilerArmContactCircle1[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle2[0]-6,topY+primaryHydraulicValveY);//primary hydraulic valve contact
   }
   else {
-    if (leftThrottleIdleFlag == _IDLE) {
-      if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-      if (groundSpoilerCBFlag == _OPENED) stroke('black');
+    if (leftThrottleIdleFlag == _IDLE1) {
+      if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+      if (groundSpoilerCBFlag == _OPENED1) stroke('black');
     }
     else {
       stroke('black');//color
@@ -482,8 +496,8 @@ function draw() {
     line(topGroundSpoilerArmContactCircle1[0]+6,topY+primaryHydraulicValveY,topGroundSpoilerArmContactCircle2[0]-6,topY+primaryHydraulicValveY-contactsOpenHeight);//primary hydraulic valve contact
   }
   if (topValveOpen) {
-    if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-    if (groundSpoilerCBFlag == _OPENED) stroke('black');
+    if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+    if (groundSpoilerCBFlag == _OPENED1) stroke('black');
   }
   else {
     stroke('black');//color
@@ -493,22 +507,22 @@ function draw() {
   
   //secondary hydraulic valve electrical lines *************************************************************************
   strokeWeight(2);
-  if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-  if (groundSpoilerCBFlag == _OPENED) stroke('black');
+  if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+  if (groundSpoilerCBFlag == _OPENED1) stroke('black');
   line(90,topY+botContactsBaseLineY,rightThrottleContactCircle1[0],rightThrottleContactCircle1[1]);//line before right throttle contacts
-  if (rightThrottleIdleFlag == _IDLE) {
-    if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-    if (groundSpoilerCBFlag == _OPENED) stroke('black');
+  if (rightThrottleIdleFlag == _IDLE1) {
+    if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+    if (groundSpoilerCBFlag == _OPENED1) stroke('black');
   }
   else {
     stroke('black');//color
   }
   strokeWeight(2);
   line(rightThrottleContactCircle2[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle1[0]-6,topY+secondaryHydraulicValveY);//line after right throttle contact
-  if (groundSpoilerArmSwitchFlag == _ARMED) {
-    if (rightThrottleIdleFlag == _IDLE) {
-      if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-      if (groundSpoilerCBFlag == _OPENED) stroke('black');
+  if (groundSpoilerArmSwitchFlag == _ARMED1) {
+    if (rightThrottleIdleFlag == _IDLE1) {
+      if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+      if (groundSpoilerCBFlag == _OPENED1) stroke('black');
     }
     else {
       stroke('black');//color
@@ -517,9 +531,9 @@ function draw() {
     line(botGroundSpoilerArmContactCircle1[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle2[0]-6,topY+secondaryHydraulicValveY);//secondary hydraulic valve contact
   }
   else {
-    if (rightThrottleIdleFlag == _IDLE) {
-      if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-      if (groundSpoilerCBFlag == _OPENED) stroke('black');
+    if (rightThrottleIdleFlag == _IDLE1) {
+      if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+      if (groundSpoilerCBFlag == _OPENED1) stroke('black');
     }
     else {
       stroke('black');//color
@@ -528,8 +542,8 @@ function draw() {
     line(botGroundSpoilerArmContactCircle1[0]+6,topY+secondaryHydraulicValveY,botGroundSpoilerArmContactCircle2[0]-6,topY+secondaryHydraulicValveY-contactsOpenHeight);//secondary hydraulic valve contact
   }
   if (botValveOpen) {
-    if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-    if (groundSpoilerCBFlag == _OPENED) stroke('black');
+    if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+    if (groundSpoilerCBFlag == _OPENED1) stroke('black');
   }
   else {
     stroke('black');//color
@@ -542,7 +556,7 @@ function draw() {
   stroke('red');//color
   fill(_BG_COLOR);
   //       x       y   w  h          start        stop
-  if (groundSpoilerCBFlag == _CLOSED) {
+  if (groundSpoilerCBFlag == _CLOSED0) {
     stroke('red');//color
     fill(_BG_COLOR);
     arc(topX+50,topY+276,20,20,radians(180),radians(360),OPEN);
@@ -569,12 +583,12 @@ function draw() {
   stroke('red');//color
   line(topX+20,topY+276,topX+40,276);// line coming out of bus
 
-  if (groundSpoilerCBFlag == _CLOSED) {
+  if (groundSpoilerCBFlag == _CLOSED0) {
     fill('red');
     stroke('red');//color
     circle(topX+80,topY+275,12);
   }
-  if (groundSpoilerCBFlag == _OPENED) {
+  if (groundSpoilerCBFlag == _OPENED1) {
     fill('black');
     stroke('black');//color
     circle(topX+80,topY+275,12);
@@ -605,8 +619,8 @@ function draw() {
   text('Combined/Utility/Auxiliary', topX+combinedUtilityAuxTextX, topY+combinedUtilityAuxTextY);
   text('Primary Valve', topX+primaryValveIDTextX, topY+primaryHydraulicValveY+8);
   text('Secondary Valve', topX+secondaryValveIDTextX, topY+secondaryHydraulicValveY+8);
-  if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-  if (groundSpoilerCBFlag == _OPENED) stroke('black');
+  if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+  if (groundSpoilerCBFlag == _OPENED1) stroke('black');
 
 //======================================================================================================================
 //======================================================================================================================
@@ -661,12 +675,12 @@ function draw() {
 fill('red');
 textSize(20);
 let y9 = 120;
-text('spoilersUp ' +                                 spoilersUp, 50, y9+45);
-text('spoilerAnimationInProgress ' + spoilerAnimationInProgress, 50, y9+65);
-text('spoilersAnimatingCount ' +          spoilersAnimatingCount,50,y9+85);
-text('spoilersLastCommand ' +               spoilersLastCommand, 50, y9+105);
-text('groundSpoilerCBFlag ' +                groundSpoilerCBFlag,50,y9+140);
-
+// text('spoilersMovingDirection ' +                                 spoilersMovingDirection, 50, y9+45);
+// text('spoilerAnimationInProgress ' + spoilerAnimationInProgress, 50, y9+65);
+// text('spoilersState '                   +          spoilersState,50,y9+85);
+// text('spoilersAnimatingCount ' +          spoilersAnimatingCount,50,y9+85);
+// text('groundSpoilerArmSwitchFlag ' + groundSpoilerArmSwitchFlag, 50, y9+125);
+// text('groundSpoilerCBFlag ' +                groundSpoilerCBFlag,50,y9+155);
 }
 
 function drawLeftMainDCBus() {
@@ -740,16 +754,16 @@ function drawSpoiler_CAS_Messages() {
   strokeWeight(0);
   textSize(20);
   
-  if (groundSpoilerArmSwitchFlag == _NOTARMED && leftThrottleIdleFlag == _IDLE && rightThrottleIdleFlag == _IDLE ) {
+  if (groundSpoilerArmSwitchFlag == _NOT_ARMED0 && leftThrottleIdleFlag == _IDLE1 && rightThrottleIdleFlag == _IDLE1 ) {
     fill('gray'); // gray
     text('GRN SPOILER', topX+RED_GRN_SPOILER_CAS_X+20, topY+RED_GRN_SPOILER_CAS_Y+10);
   }
-  if (groundSpoilerArmSwitchFlag == _ARMED && leftThrottleIdleFlag == _IDLE && rightThrottleIdleFlag == _IDLE ) {
+  if (groundSpoilerArmSwitchFlag == _ARMED1 && leftThrottleIdleFlag == _IDLE1 && rightThrottleIdleFlag == _IDLE1 ) {
     fill('gray'); // gray
     text('GRN SPOILER', topX+RED_GRN_SPOILER_CAS_X+20, topY+RED_GRN_SPOILER_CAS_Y+10);
   }
-  if (flashingRedCASmessages == false) {
-    if (groundSpoilerArmSwitchFlag == _NOTARMED) {
+  if (flashingRedCASmessages == _FALSE0) {
+    if (groundSpoilerArmSwitchFlag == _NOT_ARMED0) {
       fill('cyan');
       text('GRN SPOILER UNARM', topX+BLUE_GRN_SPOILER_UNARM_CAS_X+20, topY+BLUE_GRN_SPOILER_UNARM_CAS_Y+10);
     }
@@ -763,11 +777,11 @@ function drawSpoiler_CAS_Messages() {
     //console.log('NO GND SPOILERS red');
     //}
   }
-  if ((groundSpoilerArmSwitchFlag == _ARMED && topValveOpen && botValveOpen) ||
-    (groundSpoilerArmSwitchFlag == _ARMED && !topValveOpen && botValveOpen) ||
-    (groundSpoilerArmSwitchFlag == _ARMED && topValveOpen && !botValveOpen)) {
+  if ((groundSpoilerArmSwitchFlag == _ARMED1 && topValveOpen && botValveOpen) ||
+    (groundSpoilerArmSwitchFlag == _ARMED1 && !topValveOpen && botValveOpen) ||
+    (groundSpoilerArmSwitchFlag == _ARMED1 && topValveOpen && !botValveOpen)) {
   }
-  if (groundSpoilerTestSwitchFlag == _TEST) {
+  if (groundSpoilerTestSwitchFlag == _TEST1) {
     fill('red');
     text('GRN SPOILER', topX+RED_GRN_SPOILER_CAS_X+20, topY+RED_GRN_SPOILER_CAS_Y+10);
     text('NO GND SPOILERS', topX+RED_NO_GND_SPOILERS_GlareshieldLightX+20, topY+RED_NO_GND_SPOILERS_GlareshieldLightY+10);
@@ -778,7 +792,7 @@ function drawSpoiler_CAS_Messages() {
   
   
   
-  if (flashingRedCASmessages == false) {
+  if (flashingRedCASmessages == _FALSE0) {
   
   }
   else {
@@ -796,7 +810,7 @@ function drawSpoiler_CAS_Messages() {
       text('NO GND SPOILERS',topX + RED_NO_GND_SPOILERS_GlareshieldLightX + 20,topY + RED_NO_GND_SPOILERS_GlareshieldLightY + 10);
       //console.log('NO GND SPOILERS gray');
       flashRedCounter = 999;
-      flashingRedCASmessages = false;
+      flashingRedCASmessages = _FALSE0;
     }
     flashRedCounter++;
     //console.log('--------------------------');
@@ -805,7 +819,7 @@ function drawSpoiler_CAS_Messages() {
 } // end
 
 function flash_NO_GND_SPOILERS() {
-  // if (flashingRedCASmessages == false) {
+  // if (flashingRedCASmessages == _FALSE0) {
   //   return;
   // }
   // if (flashRedCounter == 0) {
@@ -822,7 +836,7 @@ function flash_NO_GND_SPOILERS() {
   //   text('NO GND SPOILERS', topX+RED_NO_GND_SPOILERS_GlareshieldLightX+20, topY+RED_NO_GND_SPOILERS_GlareshieldLightY+10);
   //   console.log('NO GND SPOILERS gray');
   //   flashRedCounter = 999;
-  //   flashingRedCASmessages = false;
+  //   flashingRedCASmessages = _FALSE0;
   // }
   // flashRedCounter++;
   // console.log('--------------------------');
@@ -835,30 +849,52 @@ function wait(ms){
   }
 }
 function drawSpoilerPanels() {
-  //console.log("drawSpoilerPanels() -------------------------------------");
-  spoilersUp = _YES;
-  if (leftThrottleIdleFlag == _POWER) spoilersUp = _NO;
-  if (rightThrottleIdleFlag == _POWER) spoilersUp = _NO;
-  if (topValveOpen == _CLOSED) spoilersUp = _NO;
-  if (botValveOpen == _CLOSED) spoilersUp = _NO;
-  // spoilers going UP *************************************************************************************************
-  // spoilers going UP *************************************************************************************************
-  // spoilers going UP *************************************************************************************************
-  // spoilers going UP *************************************************************************************************
-  if (spoilersUp == _YES && spoilerAnimationInProgress == false && spoilersAnimatingCount == 0 && spoilersLastCommand == "down") {
-    console.log(20);
-    spoilersLastCommand = "up";
-    spoilerAnimationInProgress = true;
+  if (spoilerAnimationInProgress == _FALSE0) {
+    spoilersMovingDirection = _UP1;
+    if (leftThrottleIdleFlag == _POWER0 || rightThrottleIdleFlag == _POWER0 || topValveOpen == _CLOSED0 || botValveOpen == _CLOSED0) {
+      spoilersMovingDirection = _DOWN0;
+      if (spoilersState == _DOWN_NO_ANIMATION200) { // staying DOWN
+      
+      }
+      if (spoilersState == _UP_NO_ANIMATION800) { // moving DOWN
+        spoilersState = _DOWN_YES_ANIMATION100;
+      }
+    } else {
+      spoilersMovingDirection = _UP1;
+      if (spoilersState == _UP_NO_ANIMATION800) { // staying UP
+      
+      }
+      if (spoilersState == _DOWN_NO_ANIMATION200) { // moving UP
+        spoilersState = _UP_YES_ANIMATION900;
+      }
+    }
+    // spoilers staying UP ***********************************************************************************************
+    if (spoilersMovingDirection == _UP1 && spoilerAnimationInProgress == _FALSE0 && spoilersState == _UP_NO_ANIMATION800) {
+      console.log(11);
+      spoilerPanelsUp();
+      spoilersState = _UP_NO_ANIMATION800;
+      drawGroundSpoilerPanelsText();
+      return;
+    }
+    // spoilers staying DOWN *********************************************************************************************
+    if (spoilersMovingDirection == _DOWN0 && spoilerAnimationInProgress == _FALSE0 && spoilersState == _DOWN_NO_ANIMATION200) {
+      console.log(22);
+      spoilerPanelsDown();
+      spoilersState = _DOWN_NO_ANIMATION200;
+      drawGroundSpoilerPanelsText();
+      return;
+    }
+    // spoilers moving UP ************************************************************************************************
+    if (spoilersMovingDirection == _UP1 && spoilerAnimationInProgress == _FALSE0 && spoilersState == _UP_YES_ANIMATION900) {
+      console.log(50);
+      spoilersAnimatingCount = 0;
+      spoilerAnimationInProgress = _TRUE1;
+    }
   }
-  if (spoilersUp == _YES && spoilerAnimationInProgress == true && spoilersAnimatingCount == 0 && spoilersLastCommand == "up") {
-    console.log(21);
-    spoilersAnimatingCount = 0;
-    spoilersLastCommand = "up";
-  }
-  if (spoilersUp == _YES && spoilerAnimationInProgress == true && spoilersLastCommand == "up") {
+  if (spoilersMovingDirection == _UP1 && spoilerAnimationInProgress == _TRUE1) {
     spoilersAnimatingCount++;
     if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
-      console.log(22);
+      console.log(52);
       spoilerPanels25();
       drawGroundSpoilerPanelsText();
     }
@@ -872,37 +908,22 @@ function drawSpoilerPanels() {
     }
     if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
       spoilerPanelsUp();
-      drawGroundSpoilerPanelsText();
-      spoilersLastCommand = "up";
-      spoilersAnimatingCount = 912;
-      spoilerAnimationInProgress = false;
-      console.log(23);
+      spoilersMovingDirection = _UP1;
+      spoilersState = _UP_NO_ANIMATION800;
+      spoilerAnimationInProgress = _FALSE0;
+      console.log(53);
     }
-    return;
   }
-  if (spoilersUp == _YES && spoilerAnimationInProgress == false && spoilersAnimatingCount == 912 && spoilersLastCommand == "up") {
-    console.log(24);
-    spoilerPanelsUp();
-    spoilersLastCommand = "up";
-  }
-  // spoilers coming DOWN **********************************************************************************************
-  // spoilers coming DOWN **********************************************************************************************
-  // spoilers coming DOWN **********************************************************************************************
-  // spoilers coming DOWN **********************************************************************************************
-  if (spoilersUp == _NO && spoilerAnimationInProgress == false && (spoilersAnimatingCount == 0 || spoilersAnimatingCount == 913) && spoilersLastCommand == "up") {
-    console.log(10);
-    spoilersLastCommand = "down";
-    spoilerAnimationInProgress = true;
-  }
-  if (spoilersUp == _NO && spoilerAnimationInProgress == true && (spoilersAnimatingCount == 0 || spoilersAnimatingCount == 913) && spoilersLastCommand == "down") {
-    console.log(11);
+  // spoilers moving DOWN **********************************************************************************************
+  if (spoilersMovingDirection == _DOWN0 && spoilerAnimationInProgress == _FALSE0 && spoilersState == _DOWN_YES_ANIMATION100) {
+    console.log(60);
+    spoilerAnimationInProgress = _TRUE1;
     spoilersAnimatingCount = 0;
-    spoilersLastCommand = "down";
   }
-  if (spoilersUp == _NO && spoilerAnimationInProgress == true && spoilersLastCommand == "down") {
+  if (spoilersMovingDirection == _DOWN0 && spoilerAnimationInProgress == _TRUE1) {
     spoilersAnimatingCount++;
     if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
-      console.log(12);
+      console.log(62);
       spoilerPanels75();
       drawGroundSpoilerPanelsText();
     }
@@ -915,40 +936,25 @@ function drawSpoilerPanels() {
       drawGroundSpoilerPanelsText();
     }
     if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
-      console.log(13);
+      console.log(63);
       spoilerPanelsDown();
-      drawGroundSpoilerPanelsText();
-      spoilersLastCommand = "down";
-      spoilersUp = _NO;
-      spoilersAnimatingCount = 911;
-      spoilerAnimationInProgress = false;
+      spoilersMovingDirection = _DOWN0;
+      spoilersState = _DOWN_NO_ANIMATION200;
+      spoilerAnimationInProgress = _FALSE0;
     }
-    return;
-  }
-  if (spoilersUp == _NO && spoilerAnimationInProgress == false && (spoilersAnimatingCount == 911 || spoilersAnimatingCount == 0) && spoilersLastCommand == "down") {
-    console.log(14);
-    spoilerPanelsDown();
-    spoilersLastCommand = "down";
-  }
-  if (spoilersAnimatingCount == 914) {
-    console.log(15);
-    spoilerPanelsDown();
-    spoilersLastCommand = "down";
   }
 
   if (alertCount == 0) {
     // alert(
-    //   'spoilersUp ' +spoilersUp +
+    //   'spoilersMovingDirection ' +spoilersMovingDirection +
     //   '\nspoilerAnimationInProgress ' + spoilerAnimationInProgress +
-    //   '\nspoilersAnimatingCount '     + spoilersAnimatingCount +
-    //   '\nspoilersLastCommand '        + spoilersLastCommand
+    //   '\nspoilersState '     + spoilersState +
     // );
     alertCount++;
   }
   //console.log("9999 spoilers down");
-  //console.log(".... spoilersUp " + spoilersUp);
-  //console.log(".... spoilersAnimatingCount " + spoilersAnimatingCount);
-  //console.log(".... spoilersLastCommand " + spoilersLastCommand);
+  //console.log(".... spoilersMovingDirection " + spoilersMovingDirection);
+  //console.log(".... spoilersState " + spoilersState);
   //console.log("----------------------------------------------");
 
   drawGroundSpoilerPanelsText();
@@ -962,7 +968,7 @@ function drawGroundSpoilerPanelsText() {
 }
 
 function playSound() {
-  if (playSoundFlag == true) {
+  if (playSoundFlag == _TRUE1) {
     document.getElementById('mySound').play();
   }
 }
@@ -1021,8 +1027,8 @@ function spoilerPanelsUp() {
   stroke('black');//color
   strokeWeight(1);
   circle(topX + spoilerPanelLocationX + 400,topY + spoilerPanelLocationY + 426,28);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
 }
 
 function spoilerPanelsHalf() {
@@ -1051,8 +1057,8 @@ function spoilerPanelsHalf() {
   stroke('black');//black end large circle
   strokeWeight(1);
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
 }
 function spoilerPanels_NewPanel() {
   fill('gray');
@@ -1080,8 +1086,8 @@ function spoilerPanels_NewPanel() {
   stroke('blue');//gray end large circle
   strokeWeight(1);
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+426,28);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
 }
 
 function spoilerPanels_paintLargeGrayArc() {
@@ -1122,8 +1128,8 @@ function spoilerPanelsDown() {
   stroke('black');//color
   strokeWeight(1);
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+425,28);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
 }
 function spoilerPanels25() {
   fill('gray');
@@ -1146,8 +1152,8 @@ function spoilerPanels25() {
   stroke('black');//color
   strokeWeight(1);
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+425,28);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
 }
 function spoilerPanels75() {
   fill('gray');
@@ -1175,8 +1181,8 @@ function spoilerPanels75() {
   stroke('black');//color
   strokeWeight(1);
   circle(topX+spoilerPanelLocationX+400,topY+spoilerPanelLocationY+425,28);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
 }
 
 function drawPrimaryHydraulicValveOpen(centerX,centerY,diameter,topRightPoint,botRightPoint,topLeftPoint,botLeftPoint) {
@@ -1188,8 +1194,8 @@ function drawPrimaryHydraulicValveOpen(centerX,centerY,diameter,topRightPoint,bo
   //  x                      y        w                      h                      start                  stop
   arc(topX+centerX-diameter*0.40, topY+centerY, diameter+diameter*0.79,diameter+diameter*0.25,radians(topRightPoint),radians(botRightPoint),CHORD);
   arc(topX+centerX+diameter*0.40, topY+centerY, diameter+diameter*0.79,diameter+diameter*0.25,radians(topLeftPoint),radians(botLeftPoint),CHORD);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
   //line(topX+centerX-diameter*0.17,topY+242,centerX-diameter*0.17,topY+372);//top left line
   //line(topX+centerX+diameter*0.17,topY+242,centerX+diameter*0.17,topY+372);//top right line
   //line(topX+centerX-diameter*0.17,topY+428,centerX-diameter*0.17,topY+556);//bottom left line
@@ -1209,8 +1215,8 @@ function drawSecondaryHydraulicValveOpen(centerX,centerY,diameter,topRightPoint,
   //  x                      y        w                      h                      start                  stop
   arc(topX+centerX-diameter*0.40, topY+centerY, diameter+diameter*0.79,diameter+diameter*0.25,radians(topRightPoint),radians(botRightPoint), CHORD);
   arc(topX+centerX+diameter*0.40, topY+centerY, diameter+diameter*0.79,diameter+diameter*0.25,radians(topLeftPoint),radians(botLeftPoint),CHORD);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
   //line(topX+centerX-diameter*0.17,topY+242,centerX-diameter*0.17,topY+372);//top left line
   //line(topX+centerX+diameter*0.17,topY+242,centerX+diameter*0.17,topY+372);//top right line
   //line(topX+centerX-diameter*0.17,topY+428,centerX-diameter*0.17,topY+556);//bottom left line
@@ -1235,8 +1241,8 @@ function drawPrimaryHydraulicValveClosed(centerX,centerY,diameter,botArcPoint1,b
   //  x                    y                    w l/r ends            h arc up/dn           start                  stop
   arc(topX+centerX-diameter*0.0,topY+centerY-diameter*0.0,diameter+diameter*0.0,diameter+diameter*0.0,radians(botArcPoint1),radians(botArcPoint2),CHORD);
   arc(topX+centerX-diameter*0.0,topY+centerY-diameter*0.0,diameter+diameter*0.0,diameter+diameter*0.0,radians(topArcPoint1),radians(topArcPoint2),CHORD);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
 
   //fill('red');
   //rect(topX+centerX-pipeWidth,topY+centerY-(pipeLength+pipeWidth),pipeWidth*2,pipeLength);
@@ -1262,8 +1268,8 @@ function drawSecondaryHydraulicValveClosed(centerX,centerY,diameter,botArcPoint1
   //  x                    y                    w l/r ends            h arc up/dn           start                  stop
   arc(topX+centerX-diameter*0.0,topY+centerY-diameter*0.0,diameter+diameter*0.0,diameter+diameter*0.0,radians(botArcPoint1),radians(botArcPoint2),CHORD);
   arc(topX+centerX-diameter*0.0,topY+centerY-diameter*0.0,diameter+diameter*0.0,diameter+diameter*0.0,radians(topArcPoint1),radians(topArcPoint2),CHORD);
-  //if (groundSpoilerCBFlag == _CLOSED) fill('red');
-  //if (groundSpoilerCBFlag == _OPENED) fill('black');
+  //if (groundSpoilerCBFlag == _CLOSED0) fill('red');
+  //if (groundSpoilerCBFlag == _OPENED1) fill('black');
 
   //fill('red');
   //rect(topX+centerX-pipeWidth,topY+centerY-(pipeLength+pipeWidth),pipeWidth*2,pipeLength);
@@ -1289,7 +1295,7 @@ function drawGroundSpoilerTestSwitch() {
   fill('black');
   stroke('black');//color
   text('Ground Spoilers Test', topX+groundSpoilerTestSwitchTextX, topY+groundSpoilerTestSwitchTextY); // label
-  if (groundSpoilerTestSwitchFlag == _TEST) {
+  if (groundSpoilerTestSwitchFlag == _TEST1) {
     fill('black');
     stroke('black');//color
     strokeWeight(0);
@@ -1311,26 +1317,26 @@ function drawHydraulicPipingLogic() {
   fill('red');
   stroke('red');//color
   
-  debugging = false;
+  debugging = _FALSE0;
   currentSpoilerState = previousSpoilerState;
   
   // SET TOP AND BOTTOM VALVE POSITIONS -------------------------------------
   drawPrimaryHydraulicValveClosed(primaryHydraulicValveX,primaryHydraulicValveY,60,20,160,200,340);
   drawSecondaryHydraulicValveClosed(secondaryHydraulicValveX,secondaryHydraulicValveY,60,20,160,200,340);
-  if (topValveOpen == _OPENED) {
-    if (groundSpoilerCBFlag == _CLOSED) {
+  if (topValveOpen == _OPENED1) {
+    if (groundSpoilerCBFlag == _CLOSED0) {
       drawPrimaryHydraulicValveOpen(primaryHydraulicValveX,primaryHydraulicValveY,60,320,40,140,220);
     }
   }
-  if (botValveOpen == _OPENED) {
-    if (groundSpoilerCBFlag == _CLOSED) {
+  if (botValveOpen == _OPENED1) {
+    if (groundSpoilerCBFlag == _CLOSED0) {
       drawSecondaryHydraulicValveOpen(secondaryHydraulicValveX,secondaryHydraulicValveY,60,320,40,140,220);
     }
   }
-  if (groundSpoilerTestSwitchFlag == _TEST) {
-    if (topValveOpen == _CLOSED) {
+  if (groundSpoilerTestSwitchFlag == _TEST1) {
+    if (topValveOpen == _CLOSED0) {
       drawPrimaryHydraulicValveOpen(primaryHydraulicValveX,primaryHydraulicValveY,60,320,40,140,220);
-      topValveOpen = _OPENED;
+      topValveOpen = _OPENED1;
     }
   }
   
@@ -1339,21 +1345,21 @@ function drawHydraulicPipingLogic() {
   // pipeSegment110 = 110;
   // pipeSegment400 = 400;
   // pipeSegment630 = 630;
-  if (topValveOpen == _OPENED && botValveOpen == _CLOSED) {
+  if (topValveOpen == _OPENED1 && botValveOpen == _CLOSED0) {
     pipeLength = pipeSegment400;
     currentSpoilerState = 'down';
   }
-  if (topValveOpen == _OPENED && botValveOpen == _OPENED) {
+  if (topValveOpen == _OPENED1 && botValveOpen == _OPENED1) {
     pipeLength = pipeSegment630;
     currentSpoilerState = 'up';
   }
-  if (topValveOpen == _CLOSED) {
+  if (topValveOpen == _CLOSED0) {
     pipeLength = pipeSegment50;
     currentSpoilerState = 'down';
   }
-  if (groundSpoilerCBFlag == _OPENED) {
-    topValveOpen = _CLOSED;
-    botValveOpen = _CLOSED;
+  if (groundSpoilerCBFlag == _OPENED1) {
+    topValveOpen = _CLOSED0;
+    botValveOpen = _CLOSED0;
     pipeLength = pipeSegment50;
     currentSpoilerState = 'down';
   }
@@ -1362,7 +1368,7 @@ function drawHydraulicPipingLogic() {
   }
   else {
     playSound();
-    flashingRedCASmessages = true;
+    flashingRedCASmessages = _TRUE1;
     flashRedCounter = 0;
     previousSpoilerState = currentSpoilerState;
   }
@@ -1406,7 +1412,7 @@ function drawGroundSpoilerArmSwitch() {
   strokeWeight(1);
   stroke('black');//color
   drawingContext.setLineDash([5, 5]);//turn on dashed lines ***************************************************
-  if (groundSpoilerArmSwitchFlag == _ARMED) {
+  if (groundSpoilerArmSwitchFlag == _ARMED1) {
     //contacts closed
     line(topX+groundSpoilerArmSwitchX+28,topY+topContactsBaseLineY+0,topX+groundSpoilerArmSwitchX+28,topY+topContactsBaseLineY+180);
     line(topX+groundSpoilerArmSwitchX+28,topY+groundSpoilerArmSwitchY+groundSpoilerArmSwitchHeight+0,topX+groundSpoilerArmSwitchX+28,topY+groundSpoilerArmSwitchY+170);
@@ -1430,7 +1436,7 @@ function drawGroundSpoilerArmSwitchToggle() {
   rect(topX+groundSpoilerArmSwitchToggleX, topY+groundSpoilerArmSwitchToggleY, groundSpoilerArmSwitchToggleWidth, groundSpoilerArmSwitchToggleHeight, 5);//5 radius
   fill('black');
   strokeWeight(0);
-  if (groundSpoilerArmSwitchFlag == _ARMED) {
+  if (groundSpoilerArmSwitchFlag == _ARMED1) {
     strokeWeight(0);
     stroke('black');//color
     fill('red');
@@ -1440,7 +1446,7 @@ function drawGroundSpoilerArmSwitchToggle() {
   else {
     text('Off', topX+groundSpoilerArmSwitchTextToggleX+172, topY+groundSpoilerArmSwitchTextToggleY+0);
   }
-  if (groundSpoilerArmSwitchFlag == _ARMED) {
+  if (groundSpoilerArmSwitchFlag == _ARMED1) {
     strokeWeight(0);
     stroke('black');//color
     fill('red');
@@ -1498,7 +1504,7 @@ function drawSoundToggle() {
   rect(topX+soundToggleButtonX, topY+soundToggleButtonY,soundToggleButtonWidth,soundToggleButtonHeight, 5);//5 radius
   fill('black');
   strokeWeight(0);
-  if (playSoundFlag == true) {
+  if (playSoundFlag == _TRUE1) {
     text('sound: ON', topX+soundToggleButtonTextX+31,topY+soundToggleButtonTextY-20);
   }
   else {
@@ -1508,7 +1514,7 @@ function drawSoundToggle() {
 
 function drawLeftThrottle() {
   strokeWeight(1);
-  if (leftThrottleIdleFlag == _IDLE) {
+  if (leftThrottleIdleFlag == _IDLE1) {
     // left throttle at idle
     if (leftThrottlesAnimatingCount == 21) {
       fill('black');
@@ -1542,8 +1548,8 @@ function drawLeftThrottle() {
     }
     // left throttle idle contact made
     strokeWeight(3);
-    if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-    if (groundSpoilerCBFlag == _OPENED) stroke('black');
+    if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+    if (groundSpoilerCBFlag == _OPENED1) stroke('black');
     line(leftThrottleContactCircle1[0]+6,leftThrottleContactCircle1[1],leftThrottleContactCircle2[0]-6,leftThrottleContactCircle2[1]);// left throttle contacts
   }
   else {
@@ -1582,8 +1588,8 @@ function drawLeftThrottle() {
     }
     // left throttle power contact broken
     strokeWeight(3);
-    if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-    if (groundSpoilerCBFlag == _OPENED) stroke('black');
+    if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+    if (groundSpoilerCBFlag == _OPENED1) stroke('black');
     line(leftThrottleContactCircle1[0]+6,leftThrottleContactCircle1[1],leftThrottleContactCircle2[0]-6,leftThrottleContactCircle2[1]-contactsOpenHeight);// left throttle contacts
     strokeWeight(2);
   }
@@ -1591,7 +1597,7 @@ function drawLeftThrottle() {
 
 function drawRightThrottle() {
   strokeWeight(1);
-  if (rightThrottleIdleFlag == _IDLE) {
+  if (rightThrottleIdleFlag == _IDLE1) {
     // right throttle at idle
     if (rightThrottlesAnimatingCount == 21) {
       fill('black');
@@ -1625,8 +1631,8 @@ function drawRightThrottle() {
     }
     // right throttle idle contact made
     strokeWeight(3);
-    if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-    if (groundSpoilerCBFlag == _OPENED) stroke('black');
+    if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+    if (groundSpoilerCBFlag == _OPENED1) stroke('black');
     line(rightThrottleContactCircle1[0]+6,rightThrottleContactCircle1[1],rightThrottleContactCircle2[0]-6,rightThrottleContactCircle2[1]);// right throttle contacts
   }
   else {
@@ -1665,8 +1671,8 @@ function drawRightThrottle() {
     }
     // right throttle power contact broken
     strokeWeight(3);
-    if (groundSpoilerCBFlag == _CLOSED) stroke('red');
-    if (groundSpoilerCBFlag == _OPENED) stroke('black');
+    if (groundSpoilerCBFlag == _CLOSED0) stroke('red');
+    if (groundSpoilerCBFlag == _OPENED1) stroke('black');
     line(rightThrottleContactCircle1[0]+6,rightThrottleContactCircle1[1],rightThrottleContactCircle2[0]-6,rightThrottleContactCircle2[1]-contactsOpenHeight);// right throttle contacts
     strokeWeight(2);
   }
@@ -1676,7 +1682,7 @@ function drawLeftThrottleIdleVerticalContactLines() {
   strokeWeight(1);
   stroke('black');//color
   drawingContext.setLineDash([5, 5]);//turn on dashed lines
-  if (leftThrottleIdleFlag == _IDLE) {
+  if (leftThrottleIdleFlag == _IDLE1) {
     //idle
     //stroke('red');//color
     line(topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1+100,topX+leftThrottlePowerX1+40,topY+leftThrottlePowerY1-81);
@@ -1734,11 +1740,11 @@ function mouse_touch() { // touches here ***********************
       leftThrottlesAnimatingCount = 0;
       if (leftThrottleIdleFlag) {
         //going to power up
-        leftThrottleIdleFlag = _POWER;
+        leftThrottleIdleFlag = _POWER0;
       }
       else {
         //going to idle
-        leftThrottleIdleFlag = _IDLE;
+        leftThrottleIdleFlag = _IDLE1;
       }
     }
   }
@@ -1748,11 +1754,11 @@ function mouse_touch() { // touches here ***********************
       rightThrottlesAnimatingCount = 0;
       if (rightThrottleIdleFlag) {
         //going to power up
-        rightThrottleIdleFlag = _POWER;
+        rightThrottleIdleFlag = _POWER0;
       }
       else {
         //going to idle
-        rightThrottleIdleFlag = _IDLE;
+        rightThrottleIdleFlag = _IDLE1;
       }
     }
   }
@@ -1775,9 +1781,9 @@ function mouse_touch() { // touches here ***********************
 // touches here ***********************
   if (mouseX > topX+resetToggleButtonX && mouseX < topX+resetToggleButtonX + throttleWidth) {
     if (mouseY > topY+resetToggleButtonY && mouseY < topY+resetToggleButtonY + resetToggleButtonHeight) {
-      leftThrottleIdleFlag = _IDLE;
-      rightThrottleIdleFlag = _IDLE;
-      groundSpoilerArmSwitchFlag = _NOTARMED;
+      leftThrottleIdleFlag = _IDLE1;
+      rightThrottleIdleFlag = _IDLE1;
+      groundSpoilerArmSwitchFlag = _NOT_ARMED0;
     }
   }
   if (mouseX > 460 && mouseX < 570) {
@@ -1789,13 +1795,13 @@ function mouse_touch() { // touches here ***********************
 // touches here ***********************
   if (mouseX > topX+soundToggleButtonX && mouseX < topX+soundToggleButtonX + soundToggleButtonWidth) {
     if (mouseY > topY+soundToggleButtonY && mouseY < topY+soundToggleButtonY + soundToggleButtonHeight) {
-      if (playSoundFlag == true) {
-        playSoundFlag = false;
+      if (playSoundFlag == _TRUE1) {
+        playSoundFlag = _FALSE0;
       }
       else {
-        playSoundFlag = true;
+        playSoundFlag = _TRUE1;
       }
-      if (playSoundFlag == true) {
+      if (playSoundFlag == _TRUE1) {
         playSound();
       }
       else {
@@ -1807,47 +1813,46 @@ function mouse_touch() { // touches here ***********************
   // touches here ***********************
   if (mouseX > topX+groundSpoilerArmSwitchToggleX && mouseX < topX+groundSpoilerArmSwitchToggleX + groundSpoilerArmSwitchToggleWidth) {
     if (mouseY > topY+groundSpoilerArmSwitchToggleY && mouseY < topY+groundSpoilerArmSwitchToggleY + groundSpoilerArmSwitchToggleHeight) {
-      spoilersAnimatingCount = 0;
-      if (groundSpoilerArmSwitchFlag == _ARMED) {
-        groundSpoilerArmSwitchFlag = _NOTARMED; //going to OFF
+      if (groundSpoilerArmSwitchFlag == _ARMED1) {
+        groundSpoilerArmSwitchFlag = _NOT_ARMED0; //going to OFF
       }
       else {
-        groundSpoilerArmSwitchFlag = _ARMED; //going to ON
+        groundSpoilerArmSwitchFlag = _ARMED1; //going to ON
       }
     }
   }
 // touches here ***********************
   if (mouseX > topX+(groundSpoilerCBToggleX-12)*sxx && mouseX < topX+(groundSpoilerCBToggleX-12)*sxx + groundSpoilerCBToggleWidth*sxx) {
     if (mouseY > topY+(groundSpoilerCBToggleY-16)*syy && mouseY < topY+(groundSpoilerCBToggleY-16)*syy + groundSpoilerCBToggleHeight*syy) {
-      if (groundSpoilerCBFlag == _OPENED) {
-        groundSpoilerCBFlag = _CLOSED;
+      if (groundSpoilerCBFlag == _OPENED1) {
+        groundSpoilerCBFlag = _CLOSED0;
       }
       else {
-        groundSpoilerCBFlag = _OPENED;
+        groundSpoilerCBFlag = _OPENED1;
       }
     }
   }
 // touches here ***********************
   if (mouseX > topX+groundSpoilerTestSwitchX && mouseX < topX+groundSpoilerTestSwitchX + groundSpoilerTestSwitchWidth) {
     if (mouseY > topY+groundSpoilerTestSwitchY && mouseY < topY+groundSpoilerTestSwitchY + groundSpoilerTestSwitchHeight) {
-      groundSpoilerTestSwitchFlag = _TEST;
+      groundSpoilerTestSwitchFlag = _TEST1;
     }
   }
   
   //prevent default
-  return false;
+  return _FALSE0;
 }
 
 
 
 // mouse clicks here ************************************************************************************
 function mousePressed() { // mouse clicks here ***********************
-  mouse_pressed_flag = true;
+  mouse_pressed_flag = _TRUE1;
   if (mouseX > topX+resetToggleButtonX*sxx && mouseX < topX+resetToggleButtonX*sxx + throttleWidth*sxx) {
     if (mouseY > topY+resetToggleButtonY*syy && mouseY < topY+resetToggleButtonY*syy + resetToggleButtonHeight*syy) {
-      leftThrottleIdleFlag = _IDLE;
-      rightThrottleIdleFlag = _IDLE;
-      groundSpoilerArmSwitchFlag = _NOTARMED;
+      leftThrottleIdleFlag = _IDLE1;
+      rightThrottleIdleFlag = _IDLE1;
+      groundSpoilerArmSwitchFlag = _NOT_ARMED0;
       //console.log(topX+resetToggleButtonX);
       //console.log(topX+resetToggleButtonX + throttleWidth);
       //console.log(topY+resetToggleButtonY);
@@ -1864,14 +1869,13 @@ function mousePressed() { // mouse clicks here ***********************
   if (mouseX > topX+leftThrottleToggleButtonX*sxx && mouseX < topX+leftThrottleToggleButtonX*sxx + throttleWidth*sxx) {
     if (mouseY > topY+leftThrottleToggleButtonY*syy && mouseY < topY+leftThrottleToggleButtonY*syy + leftThrottleToggleButtonHeight*syy) {
       leftThrottlesAnimatingCount = 0;
-      spoilersAnimatingCount = 0;
-      if (leftThrottleIdleFlag == _IDLE) {
+      if (leftThrottleIdleFlag == _IDLE1) {
         //going to power up
-        leftThrottleIdleFlag = _POWER;
+        leftThrottleIdleFlag = _POWER0;
       }
       else {
         //going to idle
-        leftThrottleIdleFlag = _IDLE;
+        leftThrottleIdleFlag = _IDLE1;
       }
     }
   }
@@ -1879,14 +1883,13 @@ function mousePressed() { // mouse clicks here ***********************
   if (mouseX > topX+rightThrottleToggleButtonX*sxx && mouseX < topX+rightThrottleToggleButtonX*sxx + throttleWidth*sxx) {
     if (mouseY > topY+rightThrottleToggleButtonY*syy && mouseY < topY+rightThrottleToggleButtonY*syy + rightThrottleToggleButtonHeight*syy) {
       rightThrottlesAnimatingCount = 0;
-      spoilersAnimatingCount = 0;
-      if (rightThrottleIdleFlag == _IDLE) {
+      if (rightThrottleIdleFlag == _IDLE1) {
         //going to power up
-        rightThrottleIdleFlag = _POWER;
+        rightThrottleIdleFlag = _POWER0;
       }
       else {
         //going to idle
-        rightThrottleIdleFlag = _IDLE;
+        rightThrottleIdleFlag = _IDLE1;
       }
     }
   }
@@ -1909,55 +1912,50 @@ function mousePressed() { // mouse clicks here ***********************
 // mouse clicks here ***********************
   if (mouseX > topX+groundSpoilerTestSwitchX*sxx && mouseX < topX+groundSpoilerTestSwitchX*sxx + groundSpoilerTestSwitchWidth*sxx) {
     if (mouseY > topY+groundSpoilerTestSwitchY*syy && mouseY < topY+groundSpoilerTestSwitchY*syy + groundSpoilerTestSwitchHeight*syy) {
-      groundSpoilerTestSwitchFlag = _TEST;
+      groundSpoilerTestSwitchFlag = _TEST1;
     }
   }
 // mouse clicks here ***********************
   // toggle ARM switch
   if (mouseX > topX+groundSpoilerArmSwitchToggleX*sxx && mouseX < topX+groundSpoilerArmSwitchToggleX*sxx + groundSpoilerArmSwitchToggleWidth*sxx) {
     if (mouseY > topY+groundSpoilerArmSwitchToggleY*syy && mouseY < topY+groundSpoilerArmSwitchToggleY*syy + groundSpoilerArmSwitchToggleHeight*syy) {
-      spoilersAnimatingCount = 0;
       alertCount = 0;
-      if (groundSpoilerArmSwitchFlag == _ARMED) {
-        groundSpoilerArmSwitchFlag = _NOTARMED; //going to OFF
+      if (groundSpoilerArmSwitchFlag == _ARMED1) {
+        groundSpoilerArmSwitchFlag = _NOT_ARMED0; //going to OFF
       }
       else {
-        groundSpoilerArmSwitchFlag = _ARMED; //going to ON
+        groundSpoilerArmSwitchFlag = _ARMED1; //going to ON
       }
     }
   }
   //mouse clicks here ***********************
   if (mouseX > topX+(groundSpoilerCBToggleX-12)*sxx && mouseX < topX+(groundSpoilerCBToggleX-12)*sxx + groundSpoilerCBToggleWidth*sxx) {
     if (mouseY > topY+(groundSpoilerCBToggleY-16)*syy && mouseY < topY+(groundSpoilerCBToggleY-16)*syy + groundSpoilerCBToggleHeight*syy) {
-      if (groundSpoilerCBFlag == _OPENED) {
-        groundSpoilerCBFlag = _CLOSED;
-        spoilersAnimatingCount = 914;// CB is closed
-        spoilersLastCommand = "down";
+      if (groundSpoilerCBFlag == _OPENED1) {
+        groundSpoilerCBFlag = _CLOSED0;
+        spoilersState = _DOWN_NO_ANIMATION200;// CB is closed
       }
       else {
-        groundSpoilerCBFlag = _OPENED;
-        spoilersUp = true;
-        spoilerAnimationInProgress = false;
-        if (spoilersAnimatingCount == 911 || spoilersAnimatingCount == 914) { //911 and 914 spoilers stay down
+        groundSpoilerCBFlag = _OPENED1;
+        spoilersMovingDirection = _DOWN0;
+        spoilerAnimationInProgress = _FALSE0;
+        if (spoilersState == _DOWN_NO_ANIMATION200) {
           return;
         }
         else {
-          //spoilersAnimatingCount = 912;// bring spoilers up with animation
-          spoilersAnimatingCount = 913;//  bring spoilers down with animation
+          spoilersState = _DOWN_YES_ANIMATION100;
         }
-        spoilersAnimatingCount = 0;
-        spoilersLastCommand = "up";
-        groundSpoilerArmSwitchFlag = _NOTARMED;
+        groundSpoilerArmSwitchFlag = _NOT_ARMED0;
       }
     }
   }
   //mouse clicks here ***********************
   if (mouseX > topX+soundToggleButtonX*sxx && mouseX < topX+soundToggleButtonX*sxx + soundToggleButtonWidth*sxx) {
     if (mouseY > topY + soundToggleButtonY*syy && mouseY < topY + soundToggleButtonY*syy + soundToggleButtonHeight*syy) {
-      if (playSoundFlag == true) {
-        playSoundFlag = false;
+      if (playSoundFlag == _TRUE1) {
+        playSoundFlag = _FALSE0;
       } else {
-        playSoundFlag = true;
+        playSoundFlag = _TRUE1;
         playSound();
       }
       drawSoundToggle();
@@ -1966,32 +1964,32 @@ function mousePressed() { // mouse clicks here ***********************
   //mouse clicks here ***********************
   // if (mouseX > topX+groundSpoilerArmSwitchX*sxx && mouseX < topX+groundSpoilerArmSwitchX*sxx + groundSpoilerArmSwitchWidth*sxx) {
   //   if (mouseY > topY+groundSpoilerArmSwitchY*syy && mouseY < topY+groundSpoilerArmSwitchY*syy + groundSpoilerArmSwitchHeight*syy) {
-  //     if (groundSpoilerArmSwitchFlag == _ARMED) {
-  //       groundSpoilerArmSwitchFlag = _NOTARMED; //going to unarmed/down
+  //     if (groundSpoilerArmSwitchFlag == _ARMED1) {
+  //       groundSpoilerArmSwitchFlag = _NOT_ARMED0; //going to unarmed/down
   //     }
   //     else {
-  //       groundSpoilerArmSwitchFlag = _ARMED; //going to arm/up
+  //       groundSpoilerArmSwitchFlag = _ARMED1; //going to arm/up
   //     }
   //   }
   // }
-  mouse_pressed_flag = false;
+  mouse_pressed_flag = _FALSE0;
 }
 
 
 
 function mouse_is_pressed() {
-  // mouse_pressed_flag = true;
+  // mouse_pressed_flag = _TRUE1;
   // if (mouseX > topX+groundSpoilerTestSwitchX && mouseX < topX+groundSpoilerTestSwitchX + groundSpoilerTestSwitchWidth) {
   //   if (mouseY > topY+groundSpoilerTestSwitchY && mouseY < topY+groundSpoilerTestSwitchY + groundSpoilerTestSwitchHeight) {
   //     strokeWeight(0);
   //     stroke('blue');//color
   //     text(groundSpoilerTestSwitchFlag, topX+0, topY+300);
-  //     //if (groundSpoilerTestSwitchFlag == _NOTEST) {
-  //       groundSpoilerTestSwitchFlag = _TEST;
+  //     //if (groundSpoilerTestSwitchFlag == _NO_TEST1) {
+  //       groundSpoilerTestSwitchFlag = _TEST1;
   //       //drawGroundSpoilerTestSwitch();
   //     //}
   //     //else {
-  //       //groundSpoilerTestSwitchFlag = _NOTEST;
+  //       //groundSpoilerTestSwitchFlag = _NO_TEST1;
   //       //drawGroundSpoilerTestSwitch();
   //     //}
   //   }
@@ -1999,8 +1997,8 @@ function mouse_is_pressed() {
 }
 
 
-//ctx.addEventListener('mousemove', mouse_move_into_target, false);
-//ctx.addEventListener('mouseout', mouse_out_of_target, false);
+//ctx.addEventListener('mousemove', mouse_move_into_target, _FALSE0);
+//ctx.addEventListener('mouseout', mouse_out_of_target, _FALSE0);
 
 function mouseMoved(){
   if (mouseX > 460 && mouseX < 570) {
@@ -2022,38 +2020,38 @@ function mouseMoved(){
 // }
 
 function mouseReleased() {
-  groundSpoilerTestSwitchFlag = _NOTEST;
-  mouseReleaseFlag = true;
-  mouse_pressed_flag = false;
-  return false;
+  groundSpoilerTestSwitchFlag = _NO_TEST1;
+  mouseReleaseFlag = _TRUE1;
+  mouse_pressed_flag = _FALSE0;
+  return _FALSE0;
 }
 
 function mouse_is_released() {
-  // groundSpoilerTestSwitchFlag = _NOTEST;
+  // groundSpoilerTestSwitchFlag = _NO_TEST1;
   // strokeWeight(0);
   // stroke('blue');//color
   // //text(groundSpoilerTestSwitchFlag, topX+0, topY+400);
   // //text('xxxxxxxxxxxxxxxxxxx', topX+0, topY+500);
-  mouse_pressed_flag = false;
-  return false;
+  mouse_pressed_flag = _FALSE0;
+  return _FALSE0;
 }
 
 function touchStarted() {
-  if (mouse_pressed_flag == false) {
+  if (mouse_pressed_flag == _FALSE0) {
     mouse_touch();
   }
-  return false;
+  return _FALSE0;
 }
 
 function touchMoved() {
-  return false;
+  return _FALSE0;
 }
 
 function touchEnded() {
-  //if (mouse_pressed_flag == false) {
-  groundSpoilerTestSwitchFlag = _NOTEST;
+  //if (mouse_pressed_flag == _FALSE0) {
+  groundSpoilerTestSwitchFlag = _NO_TEST1;
   //}
-  return false;
+  return _FALSE0;
 }
 
 // All P5 event handlers listed below ---------------------------------------
