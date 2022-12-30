@@ -239,40 +239,24 @@ function preload() {
 }
 
 function setup() {
-  //frameRate(32);
-  //scale(2,2)
-  //ctx = createCanvas(1190, 760);
-  //frameRate(fps);
-  //console.log(getFrameRate());
+  ctx = createCanvas(xx*sxx, yy*syy);
+  ctx.scale(sxx,syy);
 }
 
 //--------------------------------------------------------------------------------------------
 function canvasPressed() {
-  // playing a sound file on a user gesture
-  // is equivalent to `userStartAudio()
+
 }
-
-//let myAudio = new Audio("spoilers5.wav");// (FF OK) (iOS not OK) (Edge OK)
-//let myAudio = new Audio("spoilers5.mp3");// (FF OK) (iOS not OK) (Edge OK)
-//let myAudio = new Audio("spoilers5.ogg");// (FF OK) (iOS not OK) (Edge OK)
-
-//const myEvent = new Event('firstEvent')
-//document.addEventListener('firstEvent', e => {
-//console.log(e);
-//first_event = 0;
-//  mouse_touch();
-//})
-//document.dispatchEvent(myEvent)
-
-//document.getElementById("clunk").play();
 
 let _BG_COLOR = '#ffdfbf'; //
 
 function draw() {
   //let c = document.getElementById("idcanvas");
   //ctx = c.getContext("2d");
-  ctx = createCanvas(xx*sxx, yy*syy);
-  ctx.scale(sxx,syy);
+  
+  //ctx = createCanvas(xx*sxx, yy*syy);
+  //ctx.scale(sxx,syy);
+  
   background(_BG_COLOR);
   //background('#bfdfff'); // light Doger blue
   //background('#ffbbff'); // light magenta
@@ -592,7 +576,8 @@ function draw() {
     stroke('black');//color
     circle(topX+80,topY+275,12);
   }
-
+  
+  textSize(16);
   strokeWeight(0);
   fill('black');
   stroke('black');//color
@@ -869,7 +854,7 @@ function drawSpoilerPanels() {
     }
     // spoilers staying UP ***********************************************************************************************
     if (spoilersMovingDirection == _UP1 && spoilerAnimationInProgress == _FALSE0 && spoilersState == _UP_NO_ANIMATION800) {
-      console.log(11);
+      //console.log(11);
       spoilerPanelsUp();
       spoilersState = _UP_NO_ANIMATION800;
       drawGroundSpoilerPanelsText();
@@ -877,7 +862,7 @@ function drawSpoilerPanels() {
     }
     // spoilers staying DOWN *********************************************************************************************
     if (spoilersMovingDirection == _DOWN0 && spoilerAnimationInProgress == _FALSE0 && spoilersState == _DOWN_NO_ANIMATION200) {
-      console.log(22);
+      //console.log(22);
       spoilerPanelsDown();
       spoilersState = _DOWN_NO_ANIMATION200;
       drawGroundSpoilerPanelsText();
@@ -885,7 +870,7 @@ function drawSpoilerPanels() {
     }
     // spoilers moving UP ************************************************************************************************
     if (spoilersMovingDirection == _UP1 && spoilerAnimationInProgress == _FALSE0 && spoilersState == _UP_YES_ANIMATION900) {
-      console.log(50);
+      //console.log(50);
       spoilersAnimatingCount = 0;
       spoilerAnimationInProgress = _TRUE1;
     }
@@ -893,7 +878,7 @@ function drawSpoilerPanels() {
   if (spoilersMovingDirection == _UP1 && spoilerAnimationInProgress == _TRUE1) {
     spoilersAnimatingCount++;
     if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
-      console.log(52);
+      //console.log(52);
       spoilerPanels25();
       drawGroundSpoilerPanelsText();
     }
@@ -910,19 +895,19 @@ function drawSpoilerPanels() {
       spoilersMovingDirection = _UP1;
       spoilersState = _UP_NO_ANIMATION800;
       spoilerAnimationInProgress = _FALSE0;
-      console.log(53);
+      //console.log(53);
     }
   }
   // spoilers moving DOWN **********************************************************************************************
   if (spoilersMovingDirection == _DOWN0 && spoilerAnimationInProgress == _FALSE0 && spoilersState == _DOWN_YES_ANIMATION100) {
-    console.log(60);
+    //console.log(60);
     spoilerAnimationInProgress = _TRUE1;
     spoilersAnimatingCount = 0;
   }
   if (spoilersMovingDirection == _DOWN0 && spoilerAnimationInProgress == _TRUE1) {
     spoilersAnimatingCount++;
     if (spoilersAnimatingCount >= 0 && spoilersAnimatingCount <= 15) {
-      console.log(62);
+      //console.log(62);
       spoilerPanels75();
       drawGroundSpoilerPanelsText();
     }
@@ -935,7 +920,7 @@ function drawSpoilerPanels() {
       drawGroundSpoilerPanelsText();
     }
     if (spoilersAnimatingCount >= 66 && spoilersAnimatingCount <= 90) {
-      console.log(63);
+      //console.log(63);
       spoilerPanelsDown();
       spoilersMovingDirection = _DOWN0;
       spoilersState = _DOWN_NO_ANIMATION200;
@@ -1732,141 +1717,134 @@ function drawRightThrottleIdleVerticalContactLines() {
   drawingContext.setLineDash([]);//turn off dashed lines ******************************************************
 }
 
-// touches here ***********************
-function mouse_touch() { // touches here ***********************
-  if (mouseX > topX+leftThrottleToggleButtonX && mouseX < topX+leftThrottleToggleButtonX + throttleWidth) {
-    if (mouseY > topY+leftThrottleToggleButtonY && mouseY < topY+leftThrottleToggleButtonY + leftThrottleToggleButtonHeight) {
-      leftThrottlesAnimatingCount = 0;
-      if (leftThrottleIdleFlag) {
-        //going to power up
-        leftThrottleIdleFlag = _POWER0;
-      }
-      else {
-        //going to idle
-        leftThrottleIdleFlag = _IDLE1;
-      }
-    }
-  }
-// touches here ***********************
-  if (mouseX > topX+rightThrottleToggleButtonX && mouseX < topX+rightThrottleToggleButtonX + rightThrottleToggleButtonWidth) {
-    if (mouseY > topY+rightThrottleToggleButtonY && mouseY < topY+rightThrottleToggleButtonY + rightThrottleToggleButtonHeight) {
-      rightThrottlesAnimatingCount = 0;
-      if (rightThrottleIdleFlag) {
-        //going to power up
-        rightThrottleIdleFlag = _POWER0;
-      }
-      else {
-        //going to idle
-        rightThrottleIdleFlag = _IDLE1;
-      }
-    }
-  }
-// touches here ***********************
-//   if (mouseX > topX+zoomMinusButtonX*sxx && mouseX < topX+zoomMinusButtonX*sxx + zoomMinusButtonWidth*sxx) {
-//     if (mouseY > topY + zoomMinusButtonY*syy && mouseY < topY+zoomMinusButtonY*syy + zoomMinusButtonHeight*syy) {
-//       sxx = sxx - sxxChange;
-//       syy = syy - syyChange;
-//       //console.log('Minus');
-//     }
-//   }
-// touches here ***********************
-//   if (mouseX > topX+zoomPlusButtonX*sxx && mouseX < topX+zoomPlusButtonX*sxx + zoomPlusButtonWidth*sxx) {
-//     if (mouseY > topY + zoomPlusButtonY*syy && mouseY < topY + zoomPlusButtonY*syy + zoomPlusButtonHeight*syy) {
-//       sxx = sxx + sxxChange;
-//       syy = syy + syyChange;
-//       //console.log('Plus');
-//     }
-//   }
-// touches here ***********************
-  if (mouseX > topX+resetToggleButtonX && mouseX < topX+resetToggleButtonX + throttleWidth) {
-    if (mouseY > topY+resetToggleButtonY && mouseY < topY+resetToggleButtonY + resetToggleButtonHeight) {
-      leftThrottleIdleFlag = _IDLE1;
-      rightThrottleIdleFlag = _IDLE1;
-      groundSpoilerArmSwitchFlag = _NOT_ARMED0;
-    }
-  }
-  if (mouseX > 460 && mouseX < 570) {
-    if (mouseY > 0 && mouseY < 30) {
-      document.body.style.cursor = "pointer";
-      window.location = "https://tinyjetpro.com/g4.html";
-    }
-  }
-// touches here ***********************
-  if (mouseX > topX+soundToggleButtonX && mouseX < topX+soundToggleButtonX + soundToggleButtonWidth) {
-    if (mouseY > topY+soundToggleButtonY && mouseY < topY+soundToggleButtonY + soundToggleButtonHeight) {
-      if (playSoundFlag == _TRUE1) {
-        playSoundFlag = _FALSE0;
-      }
-      else {
-        playSoundFlag = _TRUE1;
-      }
-      if (playSoundFlag == _TRUE1) {
-        playSound();
-      }
-      else {
 
-      }
-      drawSoundToggle();
+
+
+
+
+
+
+function mouse_touch() {
+  // touches here ***********************
+  if (mouseX > topX+leftThrottleToggleButtonX
+    && mouseX < topX+leftThrottleToggleButtonX + throttleWidth
+    && mouseY > topY+leftThrottleToggleButtonY
+    && mouseY < topY+leftThrottleToggleButtonY + leftThrottleToggleButtonHeight) {
+    leftThrottlesAnimatingCount = 0;
+    if (leftThrottleIdleFlag) {
+      //going to power up
+      leftThrottleIdleFlag = _POWER0;
+    }
+    else {
+      //going to idle
+      leftThrottleIdleFlag = _IDLE1;
     }
   }
   // touches here ***********************
-  if (mouseX > topX+groundSpoilerArmSwitchToggleX && mouseX < topX+groundSpoilerArmSwitchToggleX + groundSpoilerArmSwitchToggleWidth) {
-    if (mouseY > topY+groundSpoilerArmSwitchToggleY && mouseY < topY+groundSpoilerArmSwitchToggleY + groundSpoilerArmSwitchToggleHeight) {
+  if (mouseX > topX+rightThrottleToggleButtonX
+    && mouseX < topX+rightThrottleToggleButtonX + rightThrottleToggleButtonWidth
+    && mouseY > topY+rightThrottleToggleButtonY
+    && mouseY < topY+rightThrottleToggleButtonY + rightThrottleToggleButtonHeight) {
+    rightThrottlesAnimatingCount = 0;
+    if (rightThrottleIdleFlag) {
+      //going to power up
+      rightThrottleIdleFlag = _POWER0;
+    }
+    else {
+      //going to idle
+      rightThrottleIdleFlag = _IDLE1;
+    }
+  }
+  // touches here ***********************
+  if (mouseX > topX+resetToggleButtonX
+    && mouseX < topX+resetToggleButtonX + throttleWidth
+    && mouseY > topY+resetToggleButtonY
+    && mouseY < topY+resetToggleButtonY + resetToggleButtonHeight) {
+      leftThrottleIdleFlag = _IDLE1;
+      rightThrottleIdleFlag = _IDLE1;
+      groundSpoilerArmSwitchFlag = _NOT_ARMED0;
+  }
+  if (mouseX > 460 && mouseX < 570 && mouseY > 0 && mouseY < 30) {
+      document.body.style.cursor = "pointer";
+      window.location = "https://tinyjetpro.com/g4.html";
+  }
+  // touches here ***********************
+  if (mouseX > topX+soundToggleButtonX
+    && mouseX < topX+soundToggleButtonX + soundToggleButtonWidth
+    && mouseY > topY+soundToggleButtonY
+    && mouseY < topY+soundToggleButtonY + soundToggleButtonHeight) {
+    if (playSoundFlag == _TRUE1) {
+      playSoundFlag = _FALSE0;
+    }
+    else {
+      playSoundFlag = _TRUE1;
+    }
+    if (playSoundFlag == _TRUE1) {
+      playSound();
+    }
+    drawSoundToggle();
+  }
+  // touches here ***********************
+  if (mouseX > topX+groundSpoilerArmSwitchToggleX
+    && mouseX < topX+groundSpoilerArmSwitchToggleX + groundSpoilerArmSwitchToggleWidth
+    && mouseY > topY+groundSpoilerArmSwitchToggleY
+    && mouseY < topY+groundSpoilerArmSwitchToggleY + groundSpoilerArmSwitchToggleHeight) {
       if (groundSpoilerArmSwitchFlag == _ARMED1) {
         groundSpoilerArmSwitchFlag = _NOT_ARMED0; //going to OFF
       }
       else {
         groundSpoilerArmSwitchFlag = _ARMED1; //going to ON
       }
-    }
   }
-// touches here ***********************
-  if (mouseX > topX+(groundSpoilerCBToggleX-12)*sxx && mouseX < topX+(groundSpoilerCBToggleX-12)*sxx + groundSpoilerCBToggleWidth*sxx) {
-    if (mouseY > topY+(groundSpoilerCBToggleY-16)*syy && mouseY < topY+(groundSpoilerCBToggleY-16)*syy + groundSpoilerCBToggleHeight*syy) {
+  // touches here ***********************
+  if (mouseX > topX+(groundSpoilerCBToggleX-12)*sxx
+    && mouseX < topX+(groundSpoilerCBToggleX-12)*sxx + groundSpoilerCBToggleWidth*sxx
+    && mouseY > topY+(groundSpoilerCBToggleY-16)*syy
+    && mouseY < topY+(groundSpoilerCBToggleY-16)*syy + groundSpoilerCBToggleHeight*syy) {
       if (groundSpoilerCBFlag == _OPENED1) {
         groundSpoilerCBFlag = _CLOSED0;
       }
       else {
         groundSpoilerCBFlag = _OPENED1;
       }
-    }
   }
-// touches here ***********************
-  if (mouseX > topX+groundSpoilerTestSwitchX && mouseX < topX+groundSpoilerTestSwitchX + groundSpoilerTestSwitchWidth) {
-    if (mouseY > topY+groundSpoilerTestSwitchY && mouseY < topY+groundSpoilerTestSwitchY + groundSpoilerTestSwitchHeight) {
+  // touches here ***********************
+  if (mouseX > topX+groundSpoilerTestSwitchX
+    && mouseX < topX+groundSpoilerTestSwitchX + groundSpoilerTestSwitchWidth
+    && mouseY > topY+groundSpoilerTestSwitchY
+    && mouseY < topY+groundSpoilerTestSwitchY + groundSpoilerTestSwitchHeight) {
       groundSpoilerTestSwitchFlag = _TEST1;
-    }
   }
-  
-  //prevent default
-  return _FALSE0;
 }
 
 
 
-// mouse clicks here ************************************************************************************
-function mousePressed() { // mouse clicks here ***********************
+
+
+
+
+
+function mousePressed() {
+  // mouse clicks here ***********************
   mouse_pressed_flag = _TRUE1;
-  if (mouseX > topX+resetToggleButtonX*sxx && mouseX < topX+resetToggleButtonX*sxx + throttleWidth*sxx) {
-    if (mouseY > topY+resetToggleButtonY*syy && mouseY < topY+resetToggleButtonY*syy + resetToggleButtonHeight*syy) {
+  if (mouseX > topX+resetToggleButtonX*sxx
+    && mouseX < topX+resetToggleButtonX*sxx + throttleWidth*sxx
+    && mouseY > topY+resetToggleButtonY*syy
+    && mouseY < topY+resetToggleButtonY*syy + resetToggleButtonHeight*syy) {
       leftThrottleIdleFlag = _IDLE1;
       rightThrottleIdleFlag = _IDLE1;
       groundSpoilerArmSwitchFlag = _NOT_ARMED0;
-      //console.log(topX+resetToggleButtonX);
-      //console.log(topX+resetToggleButtonX + throttleWidth);
-      //console.log(topY+resetToggleButtonY);
-      //console.log(topY+resetToggleButtonY + resetToggleButtonHeight);
-    }
+      groundSpoilerCBFlag = _CLOSED0;
   }
   // mouse clicks here ***********************
-  if (mouseX > 460 && mouseX < 570) {
-    if (mouseY > 0 && mouseY < 30) {
+  if (mouseX > 460 && mouseX < 570 && mouseY > 0 && mouseY < 30) {
       window.location = "https://tinyjetpro.com/g4.html";
-    }
   }
-// mouse clicks here ***********************
-  if (mouseX > topX+leftThrottleToggleButtonX*sxx && mouseX < topX+leftThrottleToggleButtonX*sxx + throttleWidth*sxx) {
-    if (mouseY > topY+leftThrottleToggleButtonY*syy && mouseY < topY+leftThrottleToggleButtonY*syy + leftThrottleToggleButtonHeight*syy) {
+  // mouse clicks here ***********************
+  if (mouseX > topX+leftThrottleToggleButtonX*sxx
+    && mouseX < topX+leftThrottleToggleButtonX*sxx + throttleWidth*sxx
+    && mouseY > topY+leftThrottleToggleButtonY*syy
+    && mouseY < topY+leftThrottleToggleButtonY*syy + leftThrottleToggleButtonHeight*syy) {
       leftThrottlesAnimatingCount = 0;
       if (leftThrottleIdleFlag == _IDLE1) {
         //going to power up
@@ -1876,11 +1854,12 @@ function mousePressed() { // mouse clicks here ***********************
         //going to idle
         leftThrottleIdleFlag = _IDLE1;
       }
-    }
   }
-// mouse clicks here ***********************
-  if (mouseX > topX+rightThrottleToggleButtonX*sxx && mouseX < topX+rightThrottleToggleButtonX*sxx + throttleWidth*sxx) {
-    if (mouseY > topY+rightThrottleToggleButtonY*syy && mouseY < topY+rightThrottleToggleButtonY*syy + rightThrottleToggleButtonHeight*syy) {
+  // mouse clicks here ***********************
+  if (mouseX > topX+rightThrottleToggleButtonX*sxx
+    && mouseX < topX+rightThrottleToggleButtonX*sxx + throttleWidth*sxx
+    && mouseY > topY+rightThrottleToggleButtonY*syy
+    && mouseY < topY+rightThrottleToggleButtonY*syy + rightThrottleToggleButtonHeight*syy) {
       rightThrottlesAnimatingCount = 0;
       if (rightThrottleIdleFlag == _IDLE1) {
         //going to power up
@@ -1890,34 +1869,19 @@ function mousePressed() { // mouse clicks here ***********************
         //going to idle
         rightThrottleIdleFlag = _IDLE1;
       }
-    }
   }
   // mouse clicks here ***********************
-  // if (mouseX > topX+zoomMinusButtonX*sxx && mouseX < topX+zoomMinusButtonX*sxx + zoomMinusButtonWidth*sxx) {
-  //   if (mouseY > topY + zoomMinusButtonY*syy && mouseY < topY+zoomMinusButtonY*syy + zoomMinusButtonHeight*syy) {
-  //     sxx = sxx - sxxChange;
-  //     syy = syy - syyChange;
-  //     //console.log('Minus');
-  //   }
-  // }
-  // mouse clicks here ***********************
-  // if (mouseX > topX+zoomPlusButtonX*sxx && mouseX < topX+zoomPlusButtonX*sxx + zoomPlusButtonWidth*sxx) {
-  //   if (mouseY > topY + zoomPlusButtonY*syy && mouseY < topY + zoomPlusButtonY*syy + zoomPlusButtonHeight*syy) {
-  //     sxx = sxx + sxxChange;
-  //     syy = syy + syyChange;
-  //     //console.log('Plus');
-  //   }
-  // }
-// mouse clicks here ***********************
-  if (mouseX > topX+groundSpoilerTestSwitchX*sxx && mouseX < topX+groundSpoilerTestSwitchX*sxx + groundSpoilerTestSwitchWidth*sxx) {
-    if (mouseY > topY+groundSpoilerTestSwitchY*syy && mouseY < topY+groundSpoilerTestSwitchY*syy + groundSpoilerTestSwitchHeight*syy) {
+  if (mouseX > topX+groundSpoilerTestSwitchX*sxx
+    && mouseX < topX+groundSpoilerTestSwitchX*sxx + groundSpoilerTestSwitchWidth*sxx
+    && mouseY > topY+groundSpoilerTestSwitchY*syy
+    && mouseY < topY+groundSpoilerTestSwitchY*syy + groundSpoilerTestSwitchHeight*syy) {
       groundSpoilerTestSwitchFlag = _TEST1;
-    }
   }
-// mouse clicks here ***********************
-  // toggle ARM switch
-  if (mouseX > topX+groundSpoilerArmSwitchToggleX*sxx && mouseX < topX+groundSpoilerArmSwitchToggleX*sxx + groundSpoilerArmSwitchToggleWidth*sxx) {
-    if (mouseY > topY+groundSpoilerArmSwitchToggleY*syy && mouseY < topY+groundSpoilerArmSwitchToggleY*syy + groundSpoilerArmSwitchToggleHeight*syy) {
+  // mouse clicks here ***********************
+  if (mouseX > topX+groundSpoilerArmSwitchToggleX*sxx
+    && mouseX < topX+groundSpoilerArmSwitchToggleX*sxx + groundSpoilerArmSwitchToggleWidth*sxx
+    && mouseY > topY+groundSpoilerArmSwitchToggleY*syy
+    && mouseY < topY+groundSpoilerArmSwitchToggleY*syy + groundSpoilerArmSwitchToggleHeight*syy) {
       alertCount = 0;
       if (groundSpoilerArmSwitchFlag == _ARMED1) {
         groundSpoilerArmSwitchFlag = _NOT_ARMED0; //going to OFF
@@ -1925,11 +1889,12 @@ function mousePressed() { // mouse clicks here ***********************
       else {
         groundSpoilerArmSwitchFlag = _ARMED1; //going to ON
       }
-    }
   }
   //mouse clicks here ***********************
-  if (mouseX > topX+(groundSpoilerCBToggleX-12)*sxx && mouseX < topX+(groundSpoilerCBToggleX-12)*sxx + groundSpoilerCBToggleWidth*sxx) {
-    if (mouseY > topY+(groundSpoilerCBToggleY-16)*syy && mouseY < topY+(groundSpoilerCBToggleY-16)*syy + groundSpoilerCBToggleHeight*syy) {
+  if (mouseX > topX+(groundSpoilerCBToggleX-12)*sxx
+    && mouseX < topX+(groundSpoilerCBToggleX-12)*sxx + groundSpoilerCBToggleWidth*sxx
+    && mouseY > topY+(groundSpoilerCBToggleY-16)*syy
+    && mouseY < topY+(groundSpoilerCBToggleY-16)*syy + groundSpoilerCBToggleHeight*syy) {
       if (groundSpoilerCBFlag == _OPENED1) {
         groundSpoilerCBFlag = _CLOSED0;
         spoilersState = _DOWN_NO_ANIMATION200;// CB is closed
@@ -1946,77 +1911,74 @@ function mousePressed() { // mouse clicks here ***********************
         }
         groundSpoilerArmSwitchFlag = _NOT_ARMED0;
       }
-    }
   }
   //mouse clicks here ***********************
-  if (mouseX > topX+soundToggleButtonX*sxx && mouseX < topX+soundToggleButtonX*sxx + soundToggleButtonWidth*sxx) {
-    if (mouseY > topY + soundToggleButtonY*syy && mouseY < topY + soundToggleButtonY*syy + soundToggleButtonHeight*syy) {
+  if (mouseX > topX+soundToggleButtonX*sxx
+    && mouseX < topX+soundToggleButtonX*sxx + soundToggleButtonWidth*sxx
+    && mouseY > topY + soundToggleButtonY*syy
+    && mouseY < topY + soundToggleButtonY*syy + soundToggleButtonHeight*syy) {
       if (playSoundFlag == _TRUE1) {
         playSoundFlag = _FALSE0;
-      } else {
+      }
+      else {
         playSoundFlag = _TRUE1;
         playSound();
       }
       drawSoundToggle();
-    }
   }
-  //mouse clicks here ***********************
-  // if (mouseX > topX+groundSpoilerArmSwitchX*sxx && mouseX < topX+groundSpoilerArmSwitchX*sxx + groundSpoilerArmSwitchWidth*sxx) {
-  //   if (mouseY > topY+groundSpoilerArmSwitchY*syy && mouseY < topY+groundSpoilerArmSwitchY*syy + groundSpoilerArmSwitchHeight*syy) {
-  //     if (groundSpoilerArmSwitchFlag == _ARMED1) {
-  //       groundSpoilerArmSwitchFlag = _NOT_ARMED0; //going to unarmed/down
-  //     }
-  //     else {
-  //       groundSpoilerArmSwitchFlag = _ARMED1; //going to arm/up
-  //     }
-  //   }
-  // }
   mouse_pressed_flag = _FALSE0;
 }
 
 
 
-function mouse_is_pressed() {
-  // mouse_pressed_flag = _TRUE1;
-  // if (mouseX > topX+groundSpoilerTestSwitchX && mouseX < topX+groundSpoilerTestSwitchX + groundSpoilerTestSwitchWidth) {
-  //   if (mouseY > topY+groundSpoilerTestSwitchY && mouseY < topY+groundSpoilerTestSwitchY + groundSpoilerTestSwitchHeight) {
-  //     strokeWeight(0);
-  //     stroke('blue');//color
-  //     text(groundSpoilerTestSwitchFlag, topX+0, topY+300);
-  //     //if (groundSpoilerTestSwitchFlag == _NO_TEST1) {
-  //       groundSpoilerTestSwitchFlag = _TEST1;
-  //       //drawGroundSpoilerTestSwitch();
-  //     //}
-  //     //else {
-  //       //groundSpoilerTestSwitchFlag = _NO_TEST1;
-  //       //drawGroundSpoilerTestSwitch();
-  //     //}
-  //   }
-  // }
-}
 
 
-//ctx.addEventListener('mousemove', mouse_move_into_target, _FALSE0);
-//ctx.addEventListener('mouseout', mouse_out_of_target, _FALSE0);
 
-function mouseMoved(){
-  if (mouseX > 460 && mouseX < 570) {
-    if (mouseY > 0 && mouseY < 30) {
-      document.body.style.cursor = "pointer";
+
+
+function mouseMoved() {
+  if (mouseX > topX+groundSpoilerArmSwitchToggleX*sxx
+    && mouseX < topX+groundSpoilerArmSwitchToggleX*sxx+groundSpoilerArmSwitchToggleWidth*sxx
+    && mouseY > topY+groundSpoilerArmSwitchToggleY*syy
+    && mouseY < topY+groundSpoilerArmSwitchToggleY*syy+groundSpoilerArmSwitchToggleHeight*syy) {
+      cursor(HAND);
+      return;
     }
-    else {
-      document.body.style.cursor = "default";
-    }
+  else {
+      cursor(ARROW);
   }
-}
+  if (mouseX > topX+(groundSpoilerCBToggleX-12)*sxx
+    && mouseX < topX+(groundSpoilerCBToggleX-12)*sxx+groundSpoilerCBToggleWidth*sxx
+    && mouseY > topY+(groundSpoilerCBToggleY-16)*syy
+    && mouseY < topY+(groundSpoilerCBToggleY-16)*syy+groundSpoilerCBToggleHeight*syy) {
+    cursor(HAND);
+    return;
+  }
+  else {
+    cursor(ARROW);
+  }
+  if (mouseX > topX+groundSpoilerTestSwitchX*sxx
+    && mouseX < topX+groundSpoilerTestSwitchX*sxx + groundSpoilerTestSwitchWidth*sxx
+    && mouseY > topY+groundSpoilerTestSwitchY*syy
+    && mouseY < topY+groundSpoilerTestSwitchY*syy + groundSpoilerTestSwitchHeight*syy) {
+    cursor(HAND);
+    return;
+  }
+  else {
+    cursor(ARROW);
+  }
+  if (mouseX > topX+resetToggleButtonX*sxx
+    && mouseX < topX+resetToggleButtonX*sxx + throttleWidth*sxx
+    && mouseY > topY+resetToggleButtonY*syy
+    && mouseY < topY+resetToggleButtonY*syy + resetToggleButtonHeight*syy) {
+    cursor(HAND);
+    return;
+  }
+  else {
+    cursor(ARROW);
+  }
 
-// function mouse_out_of_target() {
-//   if (mouseX > 450 && mouseX < 580) {
-//     if (mouseY > 0 && mouseY < 40) {
-//       document.body.style.cursor = "default";
-//     }
-//   }
-// }
+}
 
 function mouseReleased() {
   groundSpoilerTestSwitchFlag = _NO_TEST1;
@@ -2026,11 +1988,6 @@ function mouseReleased() {
 }
 
 function mouse_is_released() {
-  // groundSpoilerTestSwitchFlag = _NO_TEST1;
-  // strokeWeight(0);
-  // stroke('blue');//color
-  // //text(groundSpoilerTestSwitchFlag, topX+0, topY+400);
-  // //text('xxxxxxxxxxxxxxxxxxx', topX+0, topY+500);
   mouse_pressed_flag = _FALSE0;
   return _FALSE0;
 }
@@ -2047,52 +2004,6 @@ function touchMoved() {
 }
 
 function touchEnded() {
-  //if (mouse_pressed_flag == _FALSE0) {
   groundSpoilerTestSwitchFlag = _NO_TEST1;
-  //}
   return _FALSE0;
 }
-
-// All P5 event handlers listed below ---------------------------------------
-
-// function setup() {
-//   createCanvas(400, 400);
-//   fill(0);
-// }
-//
-// function draw() {
-//   background(220);
-//   ellipse(width/2, height/2, 50,50);
-// }
-//
-// function keyPressed(){
-//   fill(250,200,30);
-// }
-//
-// function keyReleased(){
-//   fill(0);
-// }
-//
-// function mouseMoved(){
-//
-// }
-//
-// function mouseDragged(){
-//   print("what a drag");
-// }
-//
-// function mousePressed(){
-//
-// }
-//
-// function mouseReleased(){
-//
-// }
-//
-// function mouseClicked(){
-//
-// }
-//
-// function doubleClicked(){
-//
-// }
