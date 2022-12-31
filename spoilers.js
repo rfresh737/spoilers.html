@@ -3,6 +3,7 @@ let version = 'v4.9';
 //let spoilersAnimating = _FALSE0;
 //let spoilersArmClick = "NotArmed";
 
+
 let _TRUE1 = 1;
 let _FALSE0 = 0;
 let _POWER0 = 0;
