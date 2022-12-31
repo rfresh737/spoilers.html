@@ -1977,7 +1977,36 @@ function mouseMoved() {
   else {
     cursor(ARROW);
   }
-
+  if (mouseX > topX+leftThrottleToggleButtonX*sxx
+    && mouseX < topX+leftThrottleToggleButtonX*sxx + throttleWidth*sxx
+    && mouseY > topY+leftThrottleToggleButtonY*syy
+    && mouseY < topY+leftThrottleToggleButtonY*syy + leftThrottleToggleButtonHeight*syy) {
+    cursor(HAND);
+    return;
+  }
+  else {
+    cursor(ARROW);
+  }
+  if (mouseX > topX+rightThrottleToggleButtonX*sxx
+    && mouseX < topX+rightThrottleToggleButtonX*sxx + throttleWidth*sxx
+    && mouseY > topY+rightThrottleToggleButtonY*syy
+    && mouseY < topY+rightThrottleToggleButtonY*syy + rightThrottleToggleButtonHeight*syy) {
+    cursor(HAND);
+    return;
+  }
+  else {
+    cursor(ARROW);
+  }
+  if (mouseX > topX+soundToggleButtonX*sxx
+    && mouseX < topX+soundToggleButtonX*sxx + soundToggleButtonWidth*sxx
+    && mouseY > topY + soundToggleButtonY*syy
+    && mouseY < topY + soundToggleButtonY*syy + soundToggleButtonHeight*syy) {
+    cursor(HAND);
+    return;
+  }
+  else {
+    cursor(ARROW);
+  }
 }
 
 function mouseReleased() {
